@@ -8,7 +8,7 @@ class IndexController extends Controller {
     
     // Route: /
     public function index() {
-        
+        return View('index');
     }
 
 }
