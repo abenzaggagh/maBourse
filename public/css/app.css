@@ -1,128 +1,109 @@
-header {
-    height: 110px;
-    padding: 60px;
-    -webkit-box-shadow: 0px 10px 101px -15px rgba(0,0,0,0.5);
-    -moz-box-shadow: 0px 10px 101px -15px rgba(0,0,0,0.5);
-    box-shadow: 0px 10px 101px -15px rgba(0,0,0,0.5);
+* {
+    
+
 }
 
-body {
-    color:#FFFFFF;
-    background: #04027CD7;
+.header {
+
+    width: 100%;
+    min-height: 100px;
+    max-height: 130px;
+    
+    background: #FFFFFF;
+
+    
+    
+    z-index: 999;
+
+    -webkit-box-shadow: 0px 0px 70px -10px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 70px -10px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 70px -10px rgba(0,0,0,0.5);
+
 }
 
 a {
-    color: #FFFFFF;
+    color: black;
+    padding: 8px;
     font-size: 18px; 
 }
 
-.logo {
-    display: flex;
+.menu {
+    padding: 4px 8px 4px 8px;
+    color: black;
+    font-size: 18px;
 }
 
-.logo-image {
-    width:80px;
-    height:80px;
-
-    margin-left:-90px;
+.menu:hover {
+    color: black;
+    background-color: #CDCDCD;
+    border-radius: 18px;
 }
 
-.logo-text {
-    width:200px;
-    height:80px;
+.disabled {
+    pointer-events: none;
+}
 
-    color: #FFFFFF;
+li {
+    margin: 4px;
+}
+
+h1 {
+
+}
+
+h2 {
     
-    margin-top:5px;
+}
 
-	font-size:10px;
-    font-family:'Gothic A1', sans-serif; 
-	font-weight:100;
-    letter-spacing:0.1em;
-
-    text-align: center;
+h3 {
     
 }
 
-.languages {
-    float: right;
-    display: flex;
-    text-align:right;
-    color:#FFFFFF;
-    margin-left:30px;
+h4 {
+    
 }
 
-.language {
-    margin: 8px;
-    padding: 8px;
-    color:#FFFFFF;
+h5 {
+    
 }
 
-.language {
-    margin: 8px;
-    padding: 8px;
-    color:#FFFFFF;
-}
-
-@media only screen and (max-width: 1024px) {
-
-    header {
-        height: 110px;
-    }
-
-    .logo {
-        display: none;
-    }
-
-    .container {
-        display: none;
-    }
-
-    .languages {
-        display: none;
-    }
-
+h6 {
+    
 }
 
 
-@media only screen and (max-width: 900px) {
+body {
+    
+}
 
-    header {
-        height: 110px;
-    }
+main {
+    margin: 130px 0px 0px 0px;
+}
 
-    .logo {
-        display: none;
-    }
 
-    .container {
-        display: none;
-    }
+.spacing {
+    padding: 400px;
+    background: url('/img/background-banner.png');
+    background-repeat: no-repeat;
+    background-size: fill;
+    background-position: center;
+}
 
-    .languages {
-        display: none;
-    }
 
+.card-icon {
+
+    height: 200px;
+    margin: 8px 0px 24px 0px;
+
+}
+
+.mobile {
+    display: none;
 }
 
 
 @media only screen and (max-width: 600px) {
 
-    header {
-        height: 110px;
-    }
-
-    .logo {
-        display: none;
-    }
-
-    .container {
-        display: none;
-    }
-
-
-    .languages {
-        display: none;
-    }
+    
 
 }
