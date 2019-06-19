@@ -33,12 +33,11 @@
     
     @include('layouts.header')
 
-   <!-- 
+    <main content="content">
+        @yield('content')
+    </main>
 
-
-
-
-   --> 
+    @include('layouts.footer')
 
 </body>
 
