@@ -16,22 +16,22 @@
                 <ul class="navbar-nav mr-auto pt-3 pt-lg-0">
 
                     <!-- Acceuil - default active -->
-                    <li class="nav-item active menu">
+                    <li class="nav-item active menu" id="acceuil">
                         <a class="nav-link menu" href="{{ url('/') }}">Acceuil</a>
                     </li>
 
                     <!-- Bourses - default inactive -->
-                    <li class="nav-item menu">
+                    <li class="nav-item menu" id="bourse">
                         <a class="nav-link menu" href="">Bourses</a>
                     </li>
 
                     <!-- Candidature - default inactive -->
-                    <li class="nav-item menu">
-                        <a class="nav-link menu" href="">Candidature</a>
+                    <li class="nav-item menu" id="candidature">
+                        <a class="nav-link menu" href="{{ url('candidature') }}" onclick="candidatureHeader()">Candidature</a>
                     </li>
 
                     <!-- Candidature - default disabled -->
-                    <li class="nav-item">
+                    <li class="nav-item" id="resultats">
                         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Résultats</a>
                     </li>
 

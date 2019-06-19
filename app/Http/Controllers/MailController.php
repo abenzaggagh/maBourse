@@ -16,9 +16,9 @@ class MailController extends Controller {
 
     public function home() {
 
-        $email2 = "4min3b3n@gmail.com";
+        $email = "amine.benzaggagh@icloud.com";
 
-        Mail::to($email2)->send(new ValidationMail());
+        Mail::to($email)->send(new ValidationMail());
     }
 
     public function sendValidationEmail() {

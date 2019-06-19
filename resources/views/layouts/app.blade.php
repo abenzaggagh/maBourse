@@ -17,6 +17,8 @@
     
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/header.js') }}" defer></script>
+    
 
     <!-- Styles -->
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
@@ -33,11 +35,17 @@
     
     @include('layouts.header')
 
-    <main content="content">
-        @yield('content')
+    <main class="content">
+        <div id="page-content">
+            @yield('content')
+        </div>
     </main>
 
     @include('layouts.footer')
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
 
 </body>
 
