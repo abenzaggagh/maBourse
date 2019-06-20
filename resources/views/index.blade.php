@@ -2,68 +2,84 @@
 
 @section('content')
 
-<div class="wrapper">
-    <div class="container">
+<div class="">
+
+    <!-- Intro Section -->
+    <section class="intro-section">
+        <div class="container">
         
-        <div class="row spacing"></div>
-
-        <div class="row mt-lg-1 mb-lg-1 card-light">
-            
-            <div class="col-lg-4">
-                <div class="card mb-4 radius-0">
-                    <div class="card-body">
-                        <div class="text-center">
-                            <a href="#" class="btn btn-md btn-red rounded-circle" title="">
-                                <img class="img-fluid card-icon" src="{{ url('/img/card-icon.png') }}" alt="">
-                            </a>
-                            <h5 class="text-center title-bold font-familiy-arab-univers">Bourse en Cours</h5>
-                            <p class="card-text">
-                                Lorem ipsum dolor sit amet, 
-                                consectetur adipiscing elit.
-                                Vestibulum fringilla facilisis mattis.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4">
-                <div class="card mb-4 radius-0">
-                    <div class="card-body">
-                        <div class="text-center">
-                            <a href="#" class="btn btn-md btn-red rounded-circle" title="Candidature en Ligne">
-                                <img class="img-fluid card-icon" src="{{ url('/img/card-icon.png') }}" alt="Candidature en Ligne"></a>
-                            <h5 class="text-center title-bold font-familiy-arab-univers">Candidature en Ligne</h5>
-                            <p class="card-text">
-                                Lorem ipsum dolor sit amet, 
-                                consectetur adipiscing elit.
-                                Vestibulum fringilla facilisis mattis.
-                            </p>
-                        </div>                                                        
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4">
-                <div class="card mb-4 radius-0">
-                    <div class="card-body">
-                        <div class="text-center">
-                            <a href="#" class="btn btn-md btn-red rounded-circle" title="Informations Importantes">
-                                <img class="img-fluid card-icon" src="{{ url('/img/card-icon.png') }}" alt="Informations Importantes"></a>
-                            <h5 class="text-center title-bold font-familiy-arab-univers">Informations Importantes</h5>
-                            <p class="card-text">
-                                Lorem ipsum dolor sit amet, 
-                                consectetur adipiscing elit.
-                                Vestibulum fringilla facilisis mattis.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
+    </section>
 
-    </div>
+    <!-- Cards Section -->
+    <section class="card-section">
+        <!-- Cards -->
+        <div class="container">
+            <!-- Row -->
+            <div class="row mt-lg-1 mb-lg-1 card-light">
+                <!-- Bourse -->
+                <div class="col-lg-4">
+                    <div class="card mb-4 radius-0">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <a href="#" class="btn btn-md btn-red rounded-circle" title="">
+                                    <img class="img-fluid card-icon" src="{{ url('/img/card-icon.png') }}" alt="">
+                                </a>
+                                <h5 class="card-title text-center title-bold font-familiy-arab-univers">Bourse en Cours</h5>
+                                <p class="card-text">
+                                    Lorem ipsum dolor sit amet, 
+                                    consectetur adipiscing elit.
+                                    Vestibulum fringilla facilisis mattis.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Candidater -->
+                <div class="col-lg-4">
+                    <div class="card mb-4 radius-0">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <a href="#" class="btn btn-md btn-red rounded-circle" title="Candidature en Ligne">
+                                    <img class="img-fluid card-icon" src="{{ url('/img/card-icon.png') }}" alt="Candidature en Ligne"></a>
+                                <h5 class="card-title text-center title-bold font-familiy-arab-univers">Candidature en Ligne</h5>
+                                <p class="card-text">
+                                    Lorem ipsum dolor sit amet, 
+                                    consectetur adipiscing elit.
+                                    Vestibulum fringilla facilisis mattis.
+                                </p>
+                            </div>                                                        
+                        </div>
+                    </div>
+                </div>
+                <!-- Informations -->
+                <div class="col-lg-4">
+                    <div class="card mb-4 radius-0">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <a href="#" class="btn btn-md btn-red rounded-circle" title="Informations Importantes">
+                                    <img class="img-fluid card-icon" src="{{ url('/img/card-icon.png') }}" alt="Informations Importantes"></a>
+                                <h5 class="card-title text-center title-bold font-familiy-arab-univers">Informations Importantes</h5>
+                                <p class="card-text">
+                                    Lorem ipsum dolor sit amet, 
+                                    consectetur adipiscing elit.
+                                    Vestibulum fringilla facilisis mattis.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div>
+        </div>
+    </section> 
+    
 </div>
 
 @endsection
+
+
+
+            
+            
+
+    
