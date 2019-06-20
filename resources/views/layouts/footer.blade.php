@@ -1,4 +1,6 @@
-<footer class="container-fluid footer" id="footer">
+<footer class="footer mt-auto py-3" id="footer">
+
+    
     
     <img id="img_ft" src="{{ url('img/adresse.png') }}"/> Annexe du Ministère sise à 35 Avenue Ibn Sina- Agdal, B.P: 707, Rabat &nbsp;&nbsp;
     <img id="img_ft" src="{{url('img/email.png')}}"/> info@gmail.com &nbsp;&nbsp;

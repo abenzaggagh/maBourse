@@ -2,83 +2,133 @@
 
 @section('content')
 
-<div class="wrapper">
-    <div class="container">
-        
-        <h1>Candidature</h1>
-        
-        <div class="row">
-
-            <div class="col-sm-6">
-                <h3>Lorem ipsum dolor sit amet, vim eu sint solum, cu sea alii senserit, meis inermis mei ne. Laudem prompta qui ut, soleat molestie percipit vis ne, cu pro inani sonet. Ut vis docendi placerat, ut rebum tacimates mel.</h3>
-                <h2>Nouveau Candidat</h2>
-                <div class="form">
-                
-                    <form role="form" method="post" action="">
-                        <fieldset>							
-                            
-                        <!-- <p class="text-uppercase pull-center"> SIGN UP.</p>	 -->
-                            
-                            <div class="form-group">
-                                <label for="email">Addresse Email:</label>
-                                <input type="email" name="email" id="email" class="form-control input-lg" placeholder="">
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Mot de Passe:</label>
-                                <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Mot de Passe">
-                            </div>
-                                <div class="form-group">
-                                <label for="password">Confirmer Mot de Passe:</label>
-                                <input type="password" name="password2" id="password2" class="form-control input-lg" placeholder="Confirmer Mot de Passe">
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label" style="margin-top: 2px; margin-bottom:12px;">
-                                    <input type="checkbox" class="form-check-input">
-                                    En cliquant sur Inscrivez-vous, vous acceptez notre politique et nos conditions
-                                </label>
-                                </div>
-                            <div>
-                                <input type="submit" class="btn btn-lg btn-primary button" value="Inscription">
-                            </div>
-                        </fieldset>
-                    </form>
-                </div>
-            </div>
-
-            <div class="col-sm-1"></div>
+<section class="candidature-section">
+    <div class="candidature-auth">
+        <div class="container">
             
-            <div class="col-sm-5">
-                
-                
-            <h3 class="font-weight-light">Lorem ipsum dolor sit amet, vim eu sint solum, cu sea alii senserit, meis inermis mei ne.</h3>
-                <h2>Nouveau Candidat</h2>
-                <div class="form">
+            <h1>Candidature</h1>
+            
+            <div class="row">
 
-                    <form role="form">
-                        <fieldset>							
-                            <!-- <p class="text-uppercase"> Lorem ipsum dolor sit amet, vim eu sint solum: </p>	 -->
+                <!-- Register -->
+                <div class="col-sm-6">
+
+                    <h3>
+                    Créez un compte pour démarrer votre candidature. <br> Vous pouvez sauvegarder à tout moment et y revenir plus tard pour continuer votre demande. 
+                    Vous recevrez des mises à jour concernant votre candidature sur votre adresse e-mail.
+                    </h3>
+
+                    <div class="form">
+                    
+                        <form role="form" method="POST" action="{{ route('candidature-register') }}">
+                            @csrf
+
+                            <fieldset>
                                 
-                            <div class="form-group">
-                                <label for="email">Addresse Email:</label>
-                                <input type="email" name="username" id="username" class="form-control input-lg" placeholder="Addresse Email">
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Mot de Passe:</label>
-                                <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Mot de Passe">
-                            </div>
-                            <div>
-                                <input type="submit" class="btn btn-lg btn-primary button" value="Connexion">
-                            </div>
-                                    
-                        </fieldset>
-                    </form>	
+					
+                                
+                                <div class="form-group">
+                                    <label for="email_register">Addresse E-mail:</label>
+                                    <input type="email" name="email_register" id="email-register" class="form-control input-lg" placeholder="Addresse E-mail">
+                                    @error('email_register')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="password_register">Mot de passe:</label>
+                                    <input type="password" name="password_register" id="password-register" class="form-control @error('password_register') is-invalid @enderror input-lg" placeholder="Mot de passe" required autocomplete="new-password">
+                                    @error('password_register')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                    <div class="form-group">
+                                    <label for="password_confirmation">Confirmer votre mot de Passe:</label>
+                                    <input type="password" name="password_confirmation" id="password-confirm" class="form-control input-lg" placeholder="Confirmer votre mot de passe" required autocomplete="new-password">
+                                    @error('password_confirmation')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label" style="margin-top: 2px; margin-bottom:12px;">
+                                        <input type="checkbox" class="form-check-input" required>
+                                        En cliquant sur Inscrivez-vous, vous acceptez <a href="#" style="font-size: 15px; padding: 0;"><u>notre politique et nos conditions</u></a>.
+                                    </label>
+                                    </div>
+                                <div>
+                                    <button type="submit" class="btn btn-lg btn-primary button">
+                                        Inscription
+                                    </button>
+                                </div>
+
+                            </fieldset>
+                        </form>
+
+                    </div>
+
                 </div>
+
+                <div class="col-sm-1"></div>
+                
+                <!-- Login -->
+                <div class="col-sm-5">
+                    
+                    <h3 class="font-weight-light">Vous avez déjà enregistré en ligne votre candidature au Bourse.</h3>
+                    
+                    <br>
+
+                    <div class="form">
+
+                        <form role="form" method="POST" action="{{ route('candidature-login') }}">
+                            @csrf
+                            
+                            <fieldset>				
+                                    
+                                <div class="form-group">
+                                    <label for="email">Addresse E-mail:</label>
+                                    <input type="email" name="email" id="email" class="form-control input-lg form-control @error('email') is-invalid @enderror" placeholder="Addresse E-mail" required autocomplete="email">
+                                    @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                    
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="password">Mot de passe:</label>
+                                    <input type="password" name="password" id="password" class="form-control input-lg form-control @error('password') is-invalid @enderror" placeholder="Mot de passe" required autocomplete="current-password">
+
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <a class="btn btn-link" href="{{ route('home') }}">Mot de passe oublié?</a>
+                                </div>
+                                <div>
+                                    <button type="submit" class="btn btn-lg btn-primary button">
+                                        Connexion
+                                    </button>
+                                </div>
+                                        
+                            </fieldset>
+                        </form>	
+                    </div>
+                </div>
+
             </div>
-
+            
         </div>
-        
     </div>
-</div>
-
+</section>
 
 @endsection
