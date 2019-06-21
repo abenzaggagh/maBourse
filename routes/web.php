@@ -3,7 +3,7 @@
 /* Main Pages */
 
 // Index
-Route::get('/', 'IndexController@index');
+Route::get('/', 'IndexController@index')->name('index');
 
 // Bourses
 

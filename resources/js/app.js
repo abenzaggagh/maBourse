@@ -1,10 +1,16 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 require('./bootstrap');
+
+import $ from 'jquery';
+
+import Stepper from 'bs-stepper'
+
+import 'jquery-ui/ui/widgets/datepicker.js';
+
+
+
+window.$ = window.jQuery = $;
+
+$('.datepicker').datepicker();
 
 window.Vue = require('vue');
 
@@ -30,3 +36,17 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
 });
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    myStepper = new Stepper(document.querySelector('#stepper-example'));
+  });
+  
+  // As a jQuery Plugin
+  $(document).ready(function () {
+    var myStepper = new Stepper($('#stepper-example'));
+  });
+
+  myStepper = new Stepper(document.querySelector('#stepper-example'),{
+    linear: false
+  });
