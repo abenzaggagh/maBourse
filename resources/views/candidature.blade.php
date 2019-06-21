@@ -98,7 +98,6 @@
                                         </span>
                                     @enderror
                                     
-
                                 </div>
 
                                 <div class="form-group">
@@ -112,7 +111,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <a class="btn btn-link" href="{{ route('home') }}">Mot de passe oublié?</a>
+                                    <a class="btn btn-link" href="#">Mot de passe oublié?</a>
                                 </div>
                                 <div>
                                     <button type="submit" class="btn btn-lg btn-primary button">

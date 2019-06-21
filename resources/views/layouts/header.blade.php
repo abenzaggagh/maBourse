@@ -57,10 +57,6 @@
         </div>
     </nav>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light sb-navbar mobile">
-        
-    </nav>
-
 </header>
 
 
