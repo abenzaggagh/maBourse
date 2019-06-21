@@ -244,7 +244,51 @@
                             </div>
                         </div>
 
-                        <div id="formulaire" class="content" role="tabpanel" aria-labelledby="formulaire-trigger"></div>
+                        <div id="formulaire" class="content" role="tabpanel" aria-labelledby="formulaire-trigger">
+                        <div class="row justify-content-center" style="margin-top: 24px;">
+
+                            <div class="col-md-9" style="margin-top: 50px">
+                                
+                                <div class="formulaire-perso"  style="border-radius: 8px; -webkit-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);-moz-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);">   
+
+                                    <form>
+
+
+                                        <div>
+                                            <h3 style="font-weight: bold; font-size: 25px; margin: 8px 0 24px 0;" class="justify-content-center">Choix du programme de bourse</h3>
+                                            <h5 style="font-size: 18px; margin: 8px 0 24px 0;">Veuillez remplir ...</h5>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="niveau-etude">Programme</label>
+                                            <select class="form-control" id="sel1">
+                                                <option>Programme</option>
+                                                <option>Tunisie</option>
+                                                <option>Sénégal</option>
+                                                <option>Jordani</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="niveau-etude">Discipline</label>
+                                            <select class="form-control" id="sel1">
+                                                <option>Discipline</option>
+                                                <option>Médecine Génerale</option>
+                                                <option>Médecine Dentaire</option>
+                                                <option>Architecture</option>
+                                                <option>Industrie Biomédicale</option>
+                                            </select>
+                                        </div>
+
+                                        <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Next</button>
+                                    </form>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        </div>
 
                         <div id="confirmation" class="content" role="tabpanel" aria-labelledby="confirmation-trigger"></div>
 
