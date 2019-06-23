@@ -4,7 +4,7 @@
   <head>
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Simple Transactional Email</title>
+    <title>Dir</title>
     <style>
       img {
         border: none;
@@ -341,13 +341,13 @@
                 <tr>
                   <td class="content-block">
                     <span class="apple-link">
-                    Address 
+                      Address 
                     </span>
                   </td>
                 </tr>
                 <tr>
                   <td class="content-block powered-by">
-                    Direction ... <!-- <a  href="http://"  >HTMLemail</a> .-->
+                    Direction de la Coopération et du Partenariat
                   </td>
                 </tr>
               </table>

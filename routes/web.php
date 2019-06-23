@@ -4,6 +4,7 @@
 
 // Index
 Route::get('/', 'IndexController@index')->name('index');
+Route::get('/lang/{locale}', 'IndexController@locale')->name('locale');
 
 // Bourses
 
@@ -11,15 +12,11 @@ Route::get('/', 'IndexController@index')->name('index');
 // Candidature
 Route::get('/candidature', 'CandidatureController@index')->name('candidature');
 
-
-Route::get('/candidature-1', 'CandidatureController@information')->name('information')/*->middleware('auth')*/;
-Route::get('/candidature-2', 'CandidatureController@index')->name('bourse');
-Route::get('/candidature-3', 'CandidatureController@index')->name('formulaire');
-
-Route::get('/informations', 'CandidatureController@index')->name('formulaire');
+Route::post('/information', 'CandidatureController@information')->name('information');
 
 // Authentication
-Route::post('/candidature-login', 'CandidatureController@login')->name('candidature-login');
+// TODO: Rename the routes with simple names.
+Route::post('/login', 'CandidatureController@login')->name('login');
 Route::post('/candidature-register', 'CandidatureController@register')->name('candidature-register');
 
 Route::get('/logout', 'CandidatureController@logout')->name('logout');

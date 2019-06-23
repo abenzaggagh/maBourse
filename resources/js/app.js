@@ -36,17 +36,3 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
 });
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    myStepper = new Stepper(document.querySelector('#stepper-example'));
-  });
-  
-  // As a jQuery Plugin
-  $(document).ready(function () {
-    var myStepper = new Stepper($('#stepper-example'));
-  });
-
-  myStepper = new Stepper(document.querySelector('#stepper-example'),{
-    linear: false
-  });

@@ -25,8 +25,6 @@
 
                             <fieldset>
                                 
-					
-                                
                                 <div class="form-group">
                                     <label for="email_register">Addresse E-mail:</label>
                                     <input type="email" name="email_register" id="email-register" class="form-control input-lg" placeholder="Addresse E-mail">
@@ -84,20 +82,30 @@
 
                     <div class="form">
 
-                        <form role="form" method="POST" action="{{ route('candidature-login') }}">
+                        <form role="form" method="POST" action="{{ route('login') }}">
                             @csrf
                             
-                            <fieldset>				
-                                    
+                            
+                                @error('email')
+                                    <div class="alert alert-danger" role="alert">
+                                    <!-- <span class="invalid-feedback" role="alert"> -->
+                                        <strong>Your login are invalid.</strong>
+                                    <!-- </span> -->
+                                    </div>  
+                                @enderror
+                            
+
+                            <fieldset>
+                                
                                 <div class="form-group">
                                     <label for="email">Addresse E-mail:</label>
                                     <input type="email" name="email" id="email" class="form-control input-lg form-control @error('email') is-invalid @enderror" placeholder="Addresse E-mail" required autocomplete="email">
+                                
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
-                                        </span>
+                                        </span> 
                                     @enderror
-                                    
                                 </div>
 
                                 <div class="form-group">
@@ -110,9 +118,11 @@
                                         </span>
                                     @enderror
                                 </div>
+
                                 <div class="form-group">
                                     <a class="btn btn-link" href="#">Mot de passe oublié?</a>
                                 </div>
+
                                 <div>
                                     <button type="submit" class="btn btn-lg btn-primary button">
                                         Connexion
@@ -120,6 +130,7 @@
                                 </div>
                                         
                             </fieldset>
+                            
                         </form>	
                     </div>
                 </div>

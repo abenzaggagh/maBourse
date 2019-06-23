@@ -26,8 +26,7 @@ class ValidationMail extends Mailable
      *
      * @return $this
      */
-    public function build()
-    {
+    public function build() {
         return $this->view('emails.validation');
     }
 }

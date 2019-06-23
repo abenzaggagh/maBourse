@@ -5,7 +5,6 @@ function homeHeader() {
     $("#resultats").removeClass("active");
 }
 
-
 function candidatureHeader() {
     $("#acceuil").removeClass("active");
     $("#bourse").removeClass("active");
