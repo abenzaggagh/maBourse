@@ -15,10 +15,10 @@ class CreateBacMatieresTable extends Migration
     {
         Schema::create('bac_matieres', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('id_bac')->unsigned();
-            $table->foreign('id_bac')->references('id')->on('bacs')->onDelete('cascade')->onUpdate('cascade');
-            $table->integer('id_matiere')->unsigned();
-            $table->foreign('id_matiere')->references('id')->on('matiere_principales')->onDelete('cascade')->onUpdate('cascade');
+            $table->bigInteger('id_bac')->unsigned();
+            $table->foreign('id_bac')->references('id')->on('bacs');
+            $table->bigInteger('id_matiere')->unsigned();
+            $table->foreign('id_matiere')->references('id')->on('matiere_principales');
             $table->float('note');
             $table->timestamps();
         });

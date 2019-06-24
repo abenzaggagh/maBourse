@@ -39,8 +39,6 @@ class CreateEtudiantsTable extends Migration
      */
     public function down(){
 
-        $table->dropForeign('etudiants_user_id_foreign');
-        $table->dropColumn('user_id');
         Schema::dropIfExists('etudiants');
     }
     

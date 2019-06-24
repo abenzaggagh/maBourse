@@ -22,8 +22,8 @@ class CreateProgrammesTable extends Migration
             $table->timestamp('date_deb_prog');
             $table->timestamp('date_fin_prog');
             $table->text('condition')->nullable();
-            $table->integer('id_pays')->unsigned();
-            $table->foreign('id_pays')->references('id')->on('pays')->onDelete('cascade')->onUpdate('cascade');
+            $table->bigInteger('id_pays')->unsigned();
+            $table->foreign('id_pays')->references('id')->on('pays');
             $table->timestamps();
         });
     }

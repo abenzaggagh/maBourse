@@ -55,7 +55,7 @@
                             <div class="row justify-content-center" style="margin-top: 24px;">
                                 <div class="col-md-9">
                     
-                                    <div class="formulaire-perso"  style="border-radius: 8px; -webkit-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);-moz-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);">   
+                                    <<div class="formulaire-perso"  style="border-radius: 8px; -webkit-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);-moz-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);">   
 
                                         <form>
                                             
@@ -68,15 +68,13 @@
                                             </div>
 
                                             <div class="form-group">
-
                                                 <label for="niveau">Niveau d'étude:</label>
                                                 <select name="niveau" class="form-control form-input" id="niveau">
-                                                  <option selected disabled>Niveau d'étude</option>
                                                     <option value="BACHELIER">Baccalauréat</option>
                                                     <option value="LICENCIER">License</option>
                                                     <option value="MASTER">Master</option>
                                                     <option value="DOCTORAT">Doctorat</option>
-                                                
+                                                </select>
                                             </div>
                                             
                                             <hr style="margin: 32px 0 16px 0; padding: 8px;">
@@ -89,13 +87,12 @@
                                             <div class="row">
                                                 <div class="col">
                                                     <label for="nom">Nom: <span class="red">*</span></label>
-                                                    <input name="nom" type="text" id="nom" class="form-control form-input" placeholder="Nom" value="{{ $nom }}" required>
+                                                <input name="nom" type="text" id="nom" class="form-control form-input" placeholder="Nom" value="{{ $nom }}" required>
                                                 </div>
                                                 <div class="col">
                                                     <label for="prenom">Prénom: <span class="red">*</span></label>
                                                     <input name="prenom" id="prenom" type="text" class="form-control form-input" placeholder="Prénom" value="{{ $prenom }}" required>
                                                 </div>
-
                                             </div>
 
                                             <br>
@@ -108,14 +105,12 @@
                                             <div class="form-group">
                                                 <label for="ce">Code d'Étudiant (Code Massar | Code d'Inscription)</label>
                                                 <input name="ce" type="text" id="ce" class="form-control form-input" placeholder="XX123456" value="{{ $ce }}">
-                                            </div>                       
-
-
+                                            </div>
 
                                             <div class="form-group">
                                                 <label for="sexe">Sexe: <span class="red">*</span></label>
                                                 
-                                                <div class="row justify-content-center"  id="sexe">
+                                                <div class="row justify-content-center" >
                                                     
                                                     <div class="col-md-2"></div>
                                                 
@@ -141,7 +136,6 @@
                                                 <label for="date-naissance">Date Naissance: <span class="red">*</span></label>
                                                 {{-- <input type="date" id=""  placeholder=""> --}}
                                                 <input name="dateNaissance" id="naissance" type="date" class="form-control">
-
                                             </div>
 
                                             <div class="form-group">
@@ -156,7 +150,7 @@
                                                     </div>
 
                                                     <div class="col">
-                                                        <label for="pays" class="col-sm-2 col-form-label">Pays: </label>
+                                                        <label for="ville" class="col-sm-2 col-form-label">Pays: </label>
                                                         <div class="col-sm-10">
                                                             <input name="paysNaissance" type="text" class="form-control" placeholder="Pays" required>
                                                         </div>
@@ -170,7 +164,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="tel1">Téléphone 1: *</label>
+                                                <label for="date-naissance">Téléphone 1: *</label>
                                                 <div class="input-group mb-3">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="inputGroup-sizing-default">+ 212</span>
@@ -180,14 +174,12 @@
                                             </div>
                                             
                                             <div class="form-group">
-                                                <label for="tel2">Téléphone 2: *</label>
+                                                <label for="date-naissance">Téléphone 2: *</label>
                                                 <div class="input-group mb-3">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="inputGroup-sizing-default">+ 212</span>
                                                     </div>
-
                                                     <input name="telephone_2" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="0612345678" required>
-
                                                 </div>
                                             </div>
 

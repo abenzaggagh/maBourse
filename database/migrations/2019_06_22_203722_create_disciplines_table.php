@@ -18,8 +18,8 @@ class CreateDisciplinesTable extends Migration
             $table->string('intitule_discipline_fr');
             $table->string('intitule_discipline_ar');
             $table->integer('nbre_place');     
-            $table->integer('id_programme')->unsigned();
-            $table->foreign('id_programme')->references('id')->on('programmes')->onDelete('cascade')->onUpdate('cascade');       
+            $table->bigInteger('id_programme')->unsigned();
+            $table->foreign('id_programme')->references('id')->on('programmes');       
             $table->timestamps();
         });
     }

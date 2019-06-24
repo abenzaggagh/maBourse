@@ -15,10 +15,10 @@ class CreateBacDisciplineTestPrmsTable extends Migration
     {
         Schema::create('bac_discipline_testPrms', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('id_bac')->unsigned();
-            $table->foreign('id_bac')->references('id')->on('bacs')->onDelete('cascade')->onUpdate('cascade');
-            $table->integer('id_discipline')->unsigned();
-            $table->foreign('id_discipline')->references('id')->on('disciplines')->onDelete('cascade')->onUpdate('cascade');
+            $table->bigInteger('id_bac')->unsigned();
+            $table->foreign('id_bac')->references('id')->on('bacs');
+            $table->bigInteger('id_discipline')->unsigned();
+            $table->foreign('id_discipline')->references('id')->on('disciplines');
             $table->integer('seuil');
             $table->float('note_nationale');
             $table->float('note_regionale');

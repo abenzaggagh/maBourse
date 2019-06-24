@@ -153,6 +153,8 @@ class CandidatureController extends Controller {
 
         $request->session()->put('isRegisterd', 'True');
 
+        // return $response()->js
+
     }
 
 
