@@ -17,23 +17,23 @@
 
                     <!-- Acceuil - default active -->
                     <li class="nav-item active menu" id="acceuil">
-                        <a class="nav-link menu" href="{{ url('/') }}">Acceuil</a>
+                        <a class="nav-link menu" href="{{ url('/') }}">{{ __('lang.accueil') }}</a>
                     </li>
 
                     <!-- Bourses - default inactive -->
                     <li class="nav-item menu" id="bourse">
-                        <a class="nav-link menu" href="">Bourses</a>
+                        <a class="nav-link menu" href="">{{ __('lang.bourses') }}</a>
                     </li>
 
                     <!-- Candidature - default inactive -->
                     <li class="nav-item menu" id="candidature">
-                        <a class="nav-link menu" href="{{ url('candidature') }}" onclick="candidatureHeader()">Candidature</a>
+                        <a class="nav-link menu" href="{{ url('candidature') }}">{{ __('lang.candidature') }}</a>
                     </li>
 
                     <!-- Candidature - default disabled -->
                     <li class="nav-item" id="resultats">
-                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Résultats ----- ">
-                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Résultats</a>
+                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Résultats">
+                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">{{ __('lang.resultats') }}</a>
                         </span>
                     </li>
 
@@ -42,12 +42,11 @@
                 <!-- Languages -->
                 <ul class="navbar-nav pb-3 pb-lg-0">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownInfo" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Langue
-                        </a>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownInfo" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ __('lang.langue') }}</a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownInfo">
-                            <a class="dropdown-item" href="">Français</a>
-                            <a class="dropdown-item" href="">العربية</a>
+                        <a class="dropdown-item" href="{{ url('en') }}">English</a>
+                            <a class="dropdown-item" href="{{ url('fr') }}">Français</a>
+                            <a class="dropdown-item" href="{{ url('ar') }}">العربية</a>
                         </div>
                     </li>
                 </ul>

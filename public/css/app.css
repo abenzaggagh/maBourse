@@ -3,12 +3,12 @@
 
 }
 
-html, body {
-
+html {
+    -webkit-font-smoothing: antialiased;
 }
 
 body {
-    
+    background: url(/img/background.png);
 }
 
 header {
@@ -28,11 +28,11 @@ header {
 }
 
 main {
-    margin: 10px 0px 0px 0px;
+    /* margin: 10px 0px 0px 0px;*/
 }
 
 section {
-    min-height: 600px;
+    min-height: 450px;
 }
 
 footer {
@@ -128,11 +128,11 @@ h6 {
 
 .intro-section {
     
-    height: 775px;
+    margin: 50px;
     
     background: url('/img/background-banner.png');
     background-repeat: no-repeat;
-    background-size: fill;
+    background-size: auto 425px;
     background-position: center;
 
 }
@@ -198,4 +198,21 @@ h6 {
 
 #img_ft {
     width: 20px;
+}
+
+
+.form-input {
+    color: #000;
+}
+
+.form-input:active {
+    color: #000;
+}
+
+.form-input:focus {
+    color: #000;
+}
+
+.red {
+    color: #FF0D0D;
 }

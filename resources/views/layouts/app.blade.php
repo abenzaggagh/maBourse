@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ config('app.locale')}}">
+ 
+
 <head>
     <meta charset="utf-8">
+    <meta http-eqiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>maBourse</title>
-
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -22,13 +24,12 @@
     <!-- if statement -->
     @if(request()->is('/'))
         <script src="{{ asset('js/index.js') }}" defer></script>
-    @elseif(request()->is('candidature') || request()->is('candidature-1'))
+    @elseif(request()->is('candidature'))
         <script src="{{ asset('js/candidature.js') }}" defer></script>
     @endif
         
     <script src="{{ asset('js/bs-stepper.js') }}" defer></script>
 
-   
     <!-- Styles -->
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bs-stepper.css') }}" rel="stylesheet">
@@ -36,15 +37,13 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
-    
-
 </head>
 
 <body class="d-flex flex-column h-100">
     
     @include('layouts.header')
 
-    <main role="main" class="flex-shrink-0 content">
+    <main id="app" role="main" class="flex-shrink-0 content">
         <div id="page-content">
             @yield('content')
         </div>

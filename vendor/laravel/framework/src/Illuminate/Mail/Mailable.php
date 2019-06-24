@@ -684,8 +684,7 @@ class Mailable implements MailableContract, Renderable
      * @param  array  $data
      * @return $this
      */
-    public function view($view, array $data = [])
-    {
+    public function view($view, array $data = []) {
         $this->view = $view;
         $this->viewData = array_merge($this->viewData, $data);
 
