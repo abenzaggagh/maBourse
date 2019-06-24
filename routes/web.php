@@ -7,6 +7,8 @@ Route::get('/', 'IndexController@index')->name('index');
 Route::get('/lang/{locale}', 'IndexController@locale')->name('locale');
 
 // Bourses
+Route::get('/bourse','BourseController@index');
+Route::get('/detail_programme','BourseController@detail_programme');
 
 Auth::routes();
 
