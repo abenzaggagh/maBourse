@@ -15,12 +15,12 @@ class CreateCandidaturesTable extends Migration
     {
         Schema::create('candidatures', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('id_etudiant')->unsigned();
-            $table->foreign('id_etudiant')->references('id')->on('etudiants')->onDelete('cascade')->onUpdate('cascade');
-            $table->integer('id_programme')->unsigned();
-            $table->foreign('id_programme')->references('id')->on('programmes')->onDelete('cascade')->onUpdate('cascade');
-            $table->integer('id_discipline')->unsigned();
-            $table->foreign('id_discipline')->references('id')->on('disciplines')->onDelete('cascade')->onUpdate('cascade');
+            $table->bigInteger('etudiant_id')->unsigned();
+            $table->foreign('etudiant_id')->references('etudiant_id')->on('etudiants');
+            $table->bigInteger('id_programme')->unsigned();
+            $table->foreign('id_programme')->references('id')->on('programmes');
+            $table->bigInteger('id_discipline')->unsigned();
+            $table->foreign('id_discipline')->references('id')->on('disciplines');
             $table->string('benefice_bourse');
             $table->timestamps();
         });
@@ -33,6 +33,6 @@ class CreateCandidaturesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('condidatures');
+        Schema::dropIfExists('candidatures');
     }
 }

@@ -53,7 +53,7 @@ function stepperNext() {
     $.ajax({
         type:'POST',
         url:'/information',
-        // security: token
+
         data: {
             niveau: niveau,
             nom: nom, 
@@ -71,6 +71,7 @@ function stepperNext() {
         success: function(data) {
             window.stepper.next();
         },
+
         error: function(data){
             // Display errors
             alert("Remplissez le formulaire ci-dessous.");

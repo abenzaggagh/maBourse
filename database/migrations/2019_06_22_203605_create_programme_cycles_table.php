@@ -15,10 +15,10 @@ class CreateProgrammeCyclesTable extends Migration
     {
         Schema::create('programme_cycles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('id_programme')->unsigned();
-            $table->foreign('id_programme')->references('id')->on('programmes')->onDelete('cascade')->onUpdate('cascade');
-            $table->integer('id_cycle')->unsigned();
-            $table->foreign('id_cycle')->references('id')->on('cycles')->onDelete('cascade')->onUpdate('cascade');
+            $table->bigInteger('id_programme')->unsigned();
+            $table->foreign('id_programme')->references('id')->on('programmes');
+            $table->bigInteger('id_cycle')->unsigned();
+            $table->foreign('id_cycle')->references('id')->on('cycles');
             $table->timestamps();
         });
     }
