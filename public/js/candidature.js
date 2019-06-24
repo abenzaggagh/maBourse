@@ -6,10 +6,10 @@ $.ajaxSetup({
     }
 });
 
-
 var stepper;
 
 document.addEventListener('DOMContentLoaded', function () {
+
     
 });
 
@@ -23,9 +23,8 @@ $(document).ready(function () {
 
     var element = document.getElementById("niveau");
     element.value = document.getElementById("niveau_etude").value;
-
+  
 });
-
 
 
 // .next()
@@ -90,3 +89,5 @@ function bourseNext() {
 function stepperPrevious() {
     window.stepper.previous();
 }
+
+
