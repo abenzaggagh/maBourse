@@ -212,3 +212,7 @@ h6 {
 .form-input:focus {
     color: #000;
 }
+
+.red {
+    color: #FF0D0D;
+}

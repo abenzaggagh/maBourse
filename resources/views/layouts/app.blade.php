@@ -27,7 +27,7 @@
     <!-- if statement -->
     @if(request()->is('/'))
         <script src="{{ asset('js/index.js') }}" defer></script>
-    @elseif(request()->is('candidature') || request()->is('candidature-1'))
+    @elseif(request()->is('candidature'))
         <script src="{{ asset('js/candidature.js') }}" defer></script>
     @endif
         
@@ -46,7 +46,7 @@
     
     @include('layouts.header')
 
-    <main role="main" class="flex-shrink-0 content">
+    <main id="app" role="main" class="flex-shrink-0 content">
         <div id="page-content">
             @yield('content')
         </div>

@@ -10,13 +10,20 @@ $.ajaxSetup({
 var stepper;
 
 document.addEventListener('DOMContentLoaded', function () {
-    window.stepper = new Stepper(document.querySelector('.bs-stepper'));
+    
 });
 
 $(document).ready(function () {
-    // $('#naissance').val(new Date().toDateInputValue());
+    
     window.stepper = new Stepper($('.bs-stepper')[0]);
-    // window.stepper.to(2);
+
+    if ($('#register').val() == '1') {
+        window.stepper.to(2);
+    }
+
+    var element = document.getElementById("niveau");
+    element.value = document.getElementById("niveau_etude").value;
+
 });
 
 
@@ -31,21 +38,19 @@ $(document).ready(function () {
 function stepperNext() {
 
     // e.preventDefault();
-    // niveau-etude
 
     var niveau = $("select[name=niveau]").val();
     var nom = $("input[name=nom]").val();
     var prenom = $("input[name=prenom]").val();
     var cin = $("input[name=cin]").val();
     var ce = $("input[name=ce]").val();
-    var sexe = $("input[name=sexe]").val();
+    var sexe = $("input[name=sexe]:checked").val();
     var dateNaissance = $("input[name=dateNaissance]").val();
     var villeNaissance = $("input[name=villeNaissance]").val();
     var paysNaissance = $("input[name=paysNaissance]").val();
     var telephone_1 = $("input[name=telephone_1]").val();
     var telephone_2 = $("input[name=telephone_2]").val();
 
-    
     $.ajax({
         type:'POST',
         url:'/information',
@@ -64,12 +69,14 @@ function stepperNext() {
         },
 
         success: function(data) {
-           alert(data.success);
+            window.stepper.next();
+        },
+        error: function(data){
+            // Display errors
+            alert("Remplissez le formulaire ci-dessous.");
         }
 
     });
-
-    window.stepper.next();
     
 }
 
