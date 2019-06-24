@@ -93,9 +93,7 @@ class CandidatureController extends Controller {
         ]);
 
         if ($validator->fails()) {
-        
             return redirect('candidature')->withErrors($validator)->withInput();
-        
         } else {
 
             // attempt method return true if the authentication was successful, false if it fails.
@@ -113,13 +111,9 @@ class CandidatureController extends Controller {
                 $etudiant = DB::table('etudiants')->where('user_id', $userID)->first();
 
                 if ($etudiant == null) {
-                
                     $request->session()->put('isRegisterd', 'False');
-                
                 } else {
-
                     $request->session()->put('isRegisterd', 'True');
-
                 }
 
                 return redirect('candidature');

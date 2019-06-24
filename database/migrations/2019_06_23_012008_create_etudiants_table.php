@@ -29,7 +29,6 @@ class CreateEtudiantsTable extends Migration
             $table->string('pays_residence');
             $table->string('telephone_1');
             $table->string('telephone_2');
-            $table->timestamps();
         });
     }
 

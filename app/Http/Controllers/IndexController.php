@@ -19,7 +19,7 @@ class IndexController extends Controller {
     }
 
     
-    // Route: /land/{locale}
+    // Route: /lang/{locale}
     public function locale(Request $request, $locale) {
         
         app()->setLocale($locale);

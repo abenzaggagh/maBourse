@@ -8,6 +8,7 @@ Route::get('/lang/{locale}', 'IndexController@locale')->name('locale');
 
 // Bourses
 
+Auth::routes();
 
 // Candidature
 Route::get('/candidature', 'CandidatureController@index')->name('candidature');

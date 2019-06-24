@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ config('app.locale')}}">
  
-    @php
-        echo '<!--' . request()->session()->get('userID') . ' ' . request()->session()->get('isRegisterd') . '-->';  
-    @endphp
 
 <head>
     <meta charset="utf-8">

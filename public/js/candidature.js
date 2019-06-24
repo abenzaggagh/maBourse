@@ -54,6 +54,7 @@ function stepperNext() {
     $.ajax({
         type:'POST',
         url:'/information',
+        // security: token
         data: {
             niveau: niveau,
             nom: nom, 
@@ -79,6 +80,8 @@ function stepperNext() {
     });
     
 }
+
+// $(("#id")).onclick();
 
 function bourseNext() {
     window.stepper.next();
