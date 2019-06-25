@@ -50,12 +50,13 @@
 
                     <div class="bs-stepper-content">
                         
-                        {{-- @if (request()->session()->get('isRegisterd') == 'False') --}}
+                      
+
                         <div id="informations-personelles" class="content" role="tabpanel" aria-labelledby="informations-personelles-trigger">
                             <div class="row justify-content-center" style="margin-top: 24px;">
                                 <div class="col-md-9">
                     
-                                    <<div class="formulaire-perso"  style="border-radius: 8px; -webkit-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);-moz-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);">   
+                                    <div class="formulaire-perso"  style="border-radius: 8px; -webkit-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);-moz-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);">   
 
                                         <form>
                                             
@@ -86,12 +87,23 @@
 
                                             <div class="row">
                                                 <div class="col">
-                                                    <label for="nom">Nom: <span class="red">*</span></label>
-                                                <input name="nom" type="text" id="nom" class="form-control form-input" placeholder="Nom" value="{{ $nom }}" required>
+                                                    <label for="nom_fr">Nom: <span class="red">*</span></label>
+                                                <input name="nom_fr" type="text" id="nom_fr" class="form-control form-input" placeholder="Nom" value="{{ $nom }}" required>
                                                 </div>
+                                                <div class="col" style="text-align:right;">
+                                                    <label for="nom_ar" dir="rtl"  >الاسم العائلي: <span class="red">*</span> </label>
+                                                    <input name="nom_ar" id="nom_ar" type="text" class="form-control form-input " placeholder="الاسم العائلي" value="{{ $prenom }}" required dir="rtl">
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
                                                 <div class="col">
-                                                    <label for="prenom">Prénom: <span class="red">*</span></label>
-                                                    <input name="prenom" id="prenom" type="text" class="form-control form-input" placeholder="Prénom" value="{{ $prenom }}" required>
+                                                    <label for="prenom_fr" >Prénom: <span class="red">*</span></label>
+                                                <input name="prenom_fr" type="text" id="prenom_fr" class="form-control form-input" placeholder="Prénom" value="{{ $nom }}" required>
+                                                </div>
+                                                <div class="col" style="text-align:right;" >
+                                                    <label  dir="rtl" for="prenom_ar" >الاسم الشخصي: <span class="red">*</span></label>
+                                                    <input dir="rtl" name="prenom_ar" id="prenom_ar" type="text" class="form-control form-input" placeholder="الاسم الشخصي" value="{{ $prenom }}" required >
                                                 </div>
                                             </div>
 
