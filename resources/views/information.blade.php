@@ -29,7 +29,7 @@
                         </div>
                        
                         <div class="line"></div>
-                        <!-- STEEEEEEEEP 3 -->
+
                         <div class="step" data-target="#formulaire">
                             <button type="button" class="step-trigger" role="tab" aria-controls="formulaire" id="formulaire-trigger">
                                 <span class="bs-stepper-circle">3</span>
@@ -38,7 +38,7 @@
                         </div>
 
                         <div class="line"></div>
-                        <!-- STEEEEEEEEP 4 -->
+
                         <div class="step" data-target="#confirmation">
                             <button type="button" class="step-trigger" role="tab" aria-controls="confirmation" id="confirmation-trigger">
                                 <span class="bs-stepper-circle">4</span>
@@ -50,15 +50,15 @@
 
                     <div class="bs-stepper-content">
                         
-                        {{-- @if (request()->session()->get('isRegisterd') == 'False') --}}
                         <div id="informations-personelles" class="content" role="tabpanel" aria-labelledby="informations-personelles-trigger">
                             <div class="row justify-content-center" style="margin-top: 24px;">
                                 <div class="col-md-9">
                     
-                                    <<div class="formulaire-perso"  style="border-radius: 8px; -webkit-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);-moz-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);">   
+                                    <div class="formulaire-perso"  style="border-radius: 8px; -webkit-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);-moz-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);">   
 
-                                        <form>
-                                            
+                                        <form action="information" method="POST">
+                                        
+                                            <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                                         <input type="hidden" id="register" name="register" value="{{ $alreadyRegistered }}">
                                         <input type="hidden" id="niveau_etude" name="niveau_etude" value="{{ $niveau }}">
 
@@ -69,9 +69,9 @@
 
                                             <div class="form-group">
                                                 <label for="niveau">Niveau d'étude:</label>
-                                                <select name="niveau" class="form-control form-input" id="niveau">
+                                                <select name="niveau" class="form-control form-input" id="niveau">  
                                                     <option value="BACHELIER">Baccalauréat</option>
-                                                    <option value="LICENCIER">License</option>
+                                                    <option value="LICENCIER">Licence</option>
                                                     <option value="MASTER">Master</option>
                                                     <option value="DOCTORAT">Doctorat</option>
                                                 </select>
@@ -99,12 +99,12 @@
                                             
                                             <div class="form-group">
                                                     <label for="cin">Carte Nationale d'Identité: <span class="red">*</span></label>
-                                                    <input name="cin" id="cin" type="text" class="form-control form-input" placeholder="XX123456" value="{{ $cin }}" required>
+                                                    <input name="cin" id="cin" type="text" class="form-control form-input" placeholder="eg. " value="{{ $cin }}" required>
                                             </div>                       
 
                                             <div class="form-group">
                                                 <label for="ce">Code d'Étudiant (Code Massar | Code d'Inscription)</label>
-                                                <input name="ce" type="text" id="ce" class="form-control form-input" placeholder="XX123456" value="{{ $ce }}">
+                                                <input name="ce" type="text" id="ce" class="form-control form-input" placeholder="eg MXXxxxxxxxxx" value="{{ $ce }}">
                                             </div>
 
                                             <div class="form-group">
@@ -134,7 +134,6 @@
 
                                             <div class="form-group">
                                                 <label for="date-naissance">Date Naissance: <span class="red">*</span></label>
-                                                {{-- <input type="date" id=""  placeholder=""> --}}
                                                 <input name="dateNaissance" id="naissance" type="date" class="form-control">
                                             </div>
 
@@ -145,14 +144,14 @@
                                                     <div class="col">
                                                         <label for="ville" class="col-sm-2 col-form-label">Ville: </label>
                                                         <div class="col-sm-10">
-                                                        <input name="villeNaissance" type="text" class="form-control" placeholder="Ville" value="" required>
+                                                        <input name="villeNaissance" type="text" class="form-control form-input" placeholder="Ville" value="" required>
                                                         </div>
                                                     </div>
 
                                                     <div class="col">
                                                         <label for="ville" class="col-sm-2 col-form-label">Pays: </label>
                                                         <div class="col-sm-10">
-                                                            <input name="paysNaissance" type="text" class="form-control" placeholder="Pays" required>
+                                                            <input name="paysNaissance" type="text" class="form-control form-input" placeholder="Pays" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -169,7 +168,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="inputGroup-sizing-default">+ 212</span>
                                                     </div>
-                                                    <input name="telephone_1" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="eg. 0612345678" required>
+                                                    <input name="telephone_1" type="tel" class="form-control form-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="eg. 0612345678" pattern="[0]{1}[5-6]{1}[0-9]{8}" required>
                                                 </div>
                                             </div>
                                             
@@ -179,7 +178,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="inputGroup-sizing-default">+ 212</span>
                                                     </div>
-                                                    <input name="telephone_2" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="0612345678" required>
+                                                    <input name="telephone_2" type="tel" class="form-control form-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="0612345678" required>
                                                 </div>
                                             </div>
 
@@ -273,20 +272,8 @@
                                                     <p>condition2</p>
                                                     <p>condition3</p>
 
-<!--
 
-                                            <div>
-                                                <div class="float-left" > 
-                                                    <button class="btn nextBtn btn-lg button-no-border" type="button" onclick="stepperPrevious();">Précédant</button>
-                                                </div>
-
-                                                <div class="text-right" > 
-                                                    <button class="btn btn-primary nextBtn btn-lg" type="button" onclick="bourseNext();">Suivant</button>
-                                                </div>
-                                            </div>
--->
-
-                                                
+                 
                                             <div class="form-group form-check">
                                                 <label class="form-check-label">
                                                     <input class="form-check-input" type="checkbox" name="remember" required> I agree on  blabla.

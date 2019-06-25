@@ -151,9 +151,9 @@ class CandidatureController extends Controller {
             ]
         );
 
-        $request->session()->put('isRegisterd', 'True');
+        //$request->session()->put('isRegisterd', 'True');
 
-        // return $response()->js
+        
 
     }
 
@@ -219,7 +219,7 @@ class CandidatureController extends Controller {
             $request->session()->put('userID', $userID);
             $request->session()->put('email', $email);
 
-            Mail::to($email)->send(new ValidationMail());
+            // Mail::to($email)->send(new ValidationMail());
 
             return redirect('candidature');
 
