@@ -29,13 +29,18 @@ $(document).ready(function () {
 // .to()
 
 
+$(function () {
+    $('#datetimepicker11').datetimepicker({
+        daysOfWeekDisabled: [0, 6]
+    });
+});
 
 function stepperNext() {
 
 //     // e.preventDefault();name="prenom"
 
-    var niveau = $("select[name=niveau]").val();                        console.log("Niveau d'étude: " + niveau);
-    var nom = $("input[name=nom]").val();                               console.log("Non et Prénom: " + nom + " " + prenom);
+    var niveau = $("select[name=niveau]").val();                        
+    var nom = $("input[name=nom]").val();                               
     var prenom = $("input[name=prenom]").val();
     var cin = $("input[name=cin]").val();
     var ce = $("input[name=ce]").val();
@@ -69,7 +74,7 @@ function stepperNext() {
         },
 
         error: function(data){
-            alert('Remplirer');
+            alert('Veuillez remplir le formulaire.');
         }
 
     });

@@ -37,14 +37,24 @@ class CandidatureController extends Controller {
                 $etudiant = DB::table('etudiants')->where('user_id', $userID)->first();
 
                 $data = array(
+
                     'alreadyRegistered' => TRUE,
-                    'email' => $request->session()->get('email'),
+                    
                     'niveau' => $etudiant->niveau_etude,
                     'nom' => $etudiant->nom,
                     'prenom' => $etudiant->prenom,
+                    'nom_ar' => $etudiant->nom_ar,
+                    'prenom_ar' => $etudiant->prenom_ar,
                     'cin' => $etudiant->cin,
                     'ce' => $etudiant->ce,
                     'sexe' => $etudiant->sexe,
+                    'dateNaissance' => $etudiant->date_naissance,
+                    'villeNaissance' => $etudiant->ville_naissance,
+                    'paysNaissance' => $etudiant->pays_naissance,
+                    'email' => $request->session()->get('email'),
+                    'tel_1' => $etudiant->tel_1,
+                    'tel_2' => $etudiant->tel_2,
+
                 );
 
                 return View('information', $data);
@@ -53,12 +63,22 @@ class CandidatureController extends Controller {
 
                 $data = array(
                     'alreadyRegistered' => FALSE,
-                    'email' => $request->session()->get('email'),
+
                     'niveau' => '',
                     'nom' => '',
                     'prenom' => '',
+                    'nom_ar' => '',
+                    'prenom_ar' => '',
                     'cin' => '',
                     'ce' => '',
+                    'sexe' => '',
+                    'dateNaissance' => '',
+                    'villeNaissance' => '',
+                    'paysnaissance' => '',
+                    'email' => $request->session()->get('email'),
+                    'tel_1' => '',
+                    'tel_2' => '',
+                    
                     'sexe' => '',
                 );
 
