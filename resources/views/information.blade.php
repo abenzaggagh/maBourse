@@ -56,11 +56,11 @@
                     
                                     <div class="formulaire-perso"  style="border-radius: 8px; -webkit-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);-moz-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);">   
 
-                                        <form action="information" method="POST">
+                                        <form>
                                         
                                             <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
-                                        <input type="hidden" id="register" name="register" value="{{ $alreadyRegistered }}">
-                                        <input type="hidden" id="niveau_etude" name="niveau_etude" value="{{ $niveau }}">
+                                            <input type="hidden" id="register" name="register" value="{{ $alreadyRegistered }}">
+                                            <input type="hidden" id="niveau_etude" name="niveau_etude" value="{{ $niveau }}">
 
                                             <div>
                                                 <h3 style="font-weight: bold; font-size: 25px; margin: 8px 0 24px 0;" class="justify-content-center">Informations Personnelles</h3>
@@ -69,11 +69,12 @@
 
                                             <div class="form-group">
                                                 <label for="niveau">Niveau d'étude:</label>
-                                                <select name="niveau" class="form-control form-input" id="niveau">  
-                                                    <option value="BACHELIER">Baccalauréat</option>
-                                                    <option value="LICENCIER">Licence</option>
-                                                    <option value="MASTER">Master</option>
-                                                    <option value="DOCTORAT">Doctorat</option>
+                                                <select name="niveau" class="form-control form-input" id="niveau">
+                                                    <option selected disabled> </option>  
+                                                    <option value="BAC">Baccalauréat</option>
+                                                    <option value="LIC">Licence</option>
+                                                    <option value="MAS">Master</option>
+                                                    <option value="DOC">Doctorat</option>
                                                 </select>
                                             </div>
                                             
@@ -99,7 +100,7 @@
                                             
                                             <div class="form-group">
                                                     <label for="cin">Carte Nationale d'Identité: <span class="red">*</span></label>
-                                                    <input name="cin" id="cin" type="text" class="form-control form-input" placeholder="eg. " value="{{ $cin }}" required>
+                                                    <input name="cin" id="cin" type="text" class="form-control form-input" placeholder="eg. A123456" value="{{ $cin }}" required>
                                             </div>                       
 
                                             <div class="form-group">
@@ -144,7 +145,7 @@
                                                     <div class="col">
                                                         <label for="ville" class="col-sm-2 col-form-label">Ville: </label>
                                                         <div class="col-sm-10">
-                                                        <input name="villeNaissance" type="text" class="form-control form-input" placeholder="Ville" value="" required>
+                                                        <input name="villeNaissance" type="text" class="form-control form-input" placeholder="Ville" required>
                                                         </div>
                                                     </div>
 

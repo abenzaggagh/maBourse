@@ -20,9 +20,6 @@ $(document).ready(function () {
     if ($('#register').val() == '1') {
         window.stepper.to(2);
     }
-
-    // var element = document.getElementById("niveau");
-    // element.value = document.getElementById("niveau_etude").value;
   
 });
 
@@ -31,57 +28,55 @@ $(document).ready(function () {
 // .previous()
 // .to()
 
-// var stepper = new Stepper(document.querySelector('.bs-stepper'));
 
-// // Step 1 - Button
-// function stepperNext() {
 
-//     // e.preventDefault();
+function stepperNext() {
 
-//     var niveau = $("select[name=niveau]").val();
-//     var nom = $("input[name=nom]").val();
-//     var prenom = $("input[name=prenom]").val();
-//     var cin = $("input[name=cin]").val();
-//     var ce = $("input[name=ce]").val();
-//     var sexe = $("input[name=sexe]:checked").val();
-//     var dateNaissance = $("input[name=dateNaissance]").val();
-//     var villeNaissance = $("input[name=villeNaissance]").val();
-//     var paysNaissance = $("input[name=paysNaissance]").val();
-//     var telephone_1 = $("input[name=telephone_1]").val();
-//     var telephone_2 = $("input[name=telephone_2]").val();
+//     // e.preventDefault();name="prenom"
 
-//     $.ajax({
-//         type:'POST',
-//         url:'/information',
+    var niveau = $("select[name=niveau]").val();                        console.log("Niveau d'étude: " + niveau);
+    var nom = $("input[name=nom]").val();                               console.log("Non et Prénom: " + nom + " " + prenom);
+    var prenom = $("input[name=prenom]").val();
+    var cin = $("input[name=cin]").val();
+    var ce = $("input[name=ce]").val();
+    var sexe = $("input[name=sexe]:checked").val();
+    var dateNaissance = $("input[name=dateNaissance]").val();
+    var villeNaissance = $("input[name=villeNaissance]").val();
+    var paysNaissance = $("input[name=paysNaissance]").val();
+    var telephone_1 = $("input[name=telephone_1]").val();
+    var telephone_2 = $("input[name=telephone_2]").val();
 
-//         data: {
-//             niveau: niveau,
-//             nom: nom, 
-//             prenom: prenom,
-//             cin: cin,
-//             ce: ce, 
-//             sexe: sexe, 
-//             dateNaissance: dateNaissance,
-//             villeNaissance: villeNaissance,
-//             paysNaissance: paysNaissance,
-//             telephone_1: telephone_1,
-//             telephone_2: telephone_2,
-//         },
+    $.ajax({
+        type:'POST',
+        url:'/information',
 
-//         success: function(data) {
-//             window.stepper.next();
-//         },
+        data: {
+            niveau: niveau,
+            nom: nom, 
+            prenom: prenom,
+            cin: cin,
+            ce: ce, 
+            sexe: sexe, 
+            dateNaissance: dateNaissance,
+            villeNaissance: villeNaissance,
+            paysNaissance: paysNaissance,
+            telephone_1: telephone_1,
+            telephone_2: telephone_2,
+        },
 
-//         error: function(data){
-//             // Display errors
-//             alert('error');
-//         }
+        success: function(data) {
+            window.stepper.next();
+        },
 
-//     });
+        error: function(data){
+            alert('Remplirer');
+        }
+
+    });
     
-// }
+}
 
-// $(("#id")).onclick();
+
 
 function bourseNext() {
     window.stepper.next();

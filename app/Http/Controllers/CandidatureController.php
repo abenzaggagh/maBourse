@@ -54,7 +54,7 @@ class CandidatureController extends Controller {
                 $data = array(
                     'alreadyRegistered' => FALSE,
                     'email' => $request->session()->get('email'),
-                    'niveau' => 'BACHELIER',
+                    'niveau' => '',
                     'nom' => '',
                     'prenom' => '',
                     'cin' => '',
@@ -132,13 +132,28 @@ class CandidatureController extends Controller {
 
         $input = $request->all();
 
+        //     niveau: niveau,
+        //     nom: nom, 
+        //     prenom: prenom,
+        //     cin: cin,
+        //     ce: ce, 
+        //     sexe: sexe, 
+        //     dateNaissance: dateNaissance,
+        //     villeNaissance: villeNaissance,
+        //     paysNaissance: paysNaissance,
+        //     telephone_1: telephone_1,
+        //     telephone_2: telephone_2,
+
         DB::table('etudiants')->updateOrInsert(
             ['user_id' => $userID],
             [
-                'niveau_etude' => $input["niveau"],
                 'user_id' => $userID,
+                'niveau_etude' => $input["niveau"],
+                
                 'nom' => $input["nom"],
                 'prenom' => $input["prenom"],
+                'nom_ar' => '',
+                'prenom_ar' => '',
                 'cin' => $input["cin"],
                 'ce' => $input["ce"],
                 'date_naissance' => $input["dateNaissance"],
@@ -146,12 +161,13 @@ class CandidatureController extends Controller {
                 'pays_naissance' => $input["paysNaissance"],
                 'sexe' => $input["sexe"],
                 'pays_residence' => $input["paysNaissance"], // TODO Add a new input
-                'telephone_1' => $input["telephone_1"],
-                'telephone_2' => $input["telephone_2"],
+                'tel_1' => $input["telephone_1"],
+                'tel_2' => $input["telephone_2"],
             ]
         );
 
-        //$request->session()->put('isRegisterd', 'True');
+
+        $request->session()->put('isRegisterd', 'True');
 
         
 
