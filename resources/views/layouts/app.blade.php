@@ -26,6 +26,9 @@
         <script src="{{ asset('js/index.js') }}" defer></script>
     @elseif(request()->is('candidature'))
         <script src="{{ asset('js/candidature.js') }}" defer></script>
+    @elseif(request()->is('profil'))
+        <script src="{{ asset('js/candidature.js') }}" defer></script>    
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     @endif
         
     <script src="{{ asset('js/bs-stepper.js') }}" defer></script>

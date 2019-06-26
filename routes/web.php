@@ -29,6 +29,6 @@ Route::get('/logout', 'CandidatureController@logout')->name('logout');
 Route::get('/mail', 'MailController@index');
 Route::get('/mail/sendVerification', 'MailController@home');
 
-
+Route::view('profil','profil');
 
 
