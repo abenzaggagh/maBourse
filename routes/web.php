@@ -20,7 +20,7 @@ Route::post('/information', 'CandidatureController@information')->name('informat
 // Authentication
 // TODO: Rename the routes with simple names.
 Route::post('/login', 'CandidatureController@login')->name('login');
-Route::post('/candidature-register', 'CandidatureController@register')->name('candidature-register');
+Route::post('/register', 'CandidatureController@register')->name('register');
 
 Route::get('/logout', 'CandidatureController@logout')->name('logout');
 

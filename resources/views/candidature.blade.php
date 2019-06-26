@@ -20,7 +20,7 @@
 
                     <div class="form">
                     
-                        <form role="form" method="POST" action="{{ route('candidature-register') }}">
+                        <form role="form" method="POST" action="{{ route('register') }}">
                             @csrf
 
                             <fieldset>

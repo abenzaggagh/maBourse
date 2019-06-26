@@ -20,9 +20,6 @@ $(document).ready(function () {
     if ($('#register').val() == '1') {
         window.stepper.to(2);
     }
-
-    var element = document.getElementById("niveau");
-    element.value = document.getElementById("niveau_etude").value;
   
 });
 
@@ -31,15 +28,19 @@ $(document).ready(function () {
 // .previous()
 // .to()
 
-// var stepper = new Stepper(document.querySelector('.bs-stepper'));
 
-// Step 1 - Button
+$(function () {
+    $('#datetimepicker11').datetimepicker({
+        daysOfWeekDisabled: [0, 6]
+    });
+});
+
 function stepperNext() {
 
-    // e.preventDefault();
+//     // e.preventDefault();name="prenom"
 
-    var niveau = $("select[name=niveau]").val();
-    var nom = $("input[name=nom]").val();
+    var niveau = $("select[name=niveau]").val();                        
+    var nom = $("input[name=nom]").val();                               
     var prenom = $("input[name=prenom]").val();
     var cin = $("input[name=cin]").val();
     var ce = $("input[name=ce]").val();
@@ -73,15 +74,14 @@ function stepperNext() {
         },
 
         error: function(data){
-            // Display errors
-            alert("Remplissez le formulaire ci-dessous.");
+            alert('Veuillez remplir le formulaire.');
         }
 
     });
     
 }
 
-// $(("#id")).onclick();
+
 
 function bourseNext() {
     window.stepper.next();

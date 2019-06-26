@@ -1,11 +1,10 @@
-// Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
 
-// Variables
-@import 'variables';
-
-// Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-// jQuery
 @import '~jquery-ui/themes/base/all.css';
+
+
+@import 'variables';
+@import 'style';

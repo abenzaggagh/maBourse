@@ -37,14 +37,24 @@ class CandidatureController extends Controller {
                 $etudiant = DB::table('etudiants')->where('user_id', $userID)->first();
 
                 $data = array(
+
                     'alreadyRegistered' => TRUE,
-                    'email' => $request->session()->get('email'),
+                    
                     'niveau' => $etudiant->niveau_etude,
                     'nom' => $etudiant->nom,
                     'prenom' => $etudiant->prenom,
+                    'nom_ar' => $etudiant->nom_ar,
+                    'prenom_ar' => $etudiant->prenom_ar,
                     'cin' => $etudiant->cin,
                     'ce' => $etudiant->ce,
                     'sexe' => $etudiant->sexe,
+                    'dateNaissance' => $etudiant->date_naissance,
+                    'villeNaissance' => $etudiant->ville_naissance,
+                    'paysNaissance' => $etudiant->pays_naissance,
+                    'email' => $request->session()->get('email'),
+                    'tel_1' => $etudiant->tel_1,
+                    'tel_2' => $etudiant->tel_2,
+
                 );
 
                 return View('information', $data);
@@ -53,12 +63,22 @@ class CandidatureController extends Controller {
 
                 $data = array(
                     'alreadyRegistered' => FALSE,
-                    'email' => $request->session()->get('email'),
-                    'niveau' => 'BACHELIER',
+
+                    'niveau' => '',
                     'nom' => '',
                     'prenom' => '',
+                    'nom_ar' => '',
+                    'prenom_ar' => '',
                     'cin' => '',
                     'ce' => '',
+                    'sexe' => '',
+                    'dateNaissance' => '',
+                    'villeNaissance' => '',
+                    'paysnaissance' => '',
+                    'email' => $request->session()->get('email'),
+                    'tel_1' => '',
+                    'tel_2' => '',
+                    
                     'sexe' => '',
                 );
 
@@ -132,13 +152,28 @@ class CandidatureController extends Controller {
 
         $input = $request->all();
 
+        //     niveau: niveau,
+        //     nom: nom, 
+        //     prenom: prenom,
+        //     cin: cin,
+        //     ce: ce, 
+        //     sexe: sexe, 
+        //     dateNaissance: dateNaissance,
+        //     villeNaissance: villeNaissance,
+        //     paysNaissance: paysNaissance,
+        //     telephone_1: telephone_1,
+        //     telephone_2: telephone_2,
+
         DB::table('etudiants')->updateOrInsert(
             ['user_id' => $userID],
             [
-                'niveau_etude' => $input["niveau"],
                 'user_id' => $userID,
+                'niveau_etude' => $input["niveau"],
+                
                 'nom' => $input["nom"],
                 'prenom' => $input["prenom"],
+                'nom_ar' => '',
+                'prenom_ar' => '',
                 'cin' => $input["cin"],
                 'ce' => $input["ce"],
                 'date_naissance' => $input["dateNaissance"],
@@ -146,14 +181,15 @@ class CandidatureController extends Controller {
                 'pays_naissance' => $input["paysNaissance"],
                 'sexe' => $input["sexe"],
                 'pays_residence' => $input["paysNaissance"], // TODO Add a new input
-                'telephone_1' => $input["telephone_1"],
-                'telephone_2' => $input["telephone_2"],
+                'tel_1' => $input["telephone_1"],
+                'tel_2' => $input["telephone_2"],
             ]
         );
 
+
         $request->session()->put('isRegisterd', 'True');
 
-        // return $response()->js
+        
 
     }
 
@@ -219,7 +255,7 @@ class CandidatureController extends Controller {
             $request->session()->put('userID', $userID);
             $request->session()->put('email', $email);
 
-            Mail::to($email)->send(new ValidationMail());
+            // Mail::to($email)->send(new ValidationMail());
 
             return redirect('candidature');
 

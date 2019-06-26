@@ -10,18 +10,16 @@
 
     <title>maBourse</title>
 
-    <!-- Fonts -->
+
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
-    <!--
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-    -->
     
-    <!-- Scripts -->
+    
+
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <script src="{{ asset('js/header.js') }}" defer></script>
-    <!-- if statement -->
+
     @if(request()->is('/'))
         <script src="{{ asset('js/index.js') }}" defer></script>
     @elseif(request()->is('candidature'))
@@ -30,7 +28,6 @@
         
     <script src="{{ asset('js/bs-stepper.js') }}" defer></script>
 
-    <!-- Styles -->
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bs-stepper.css') }}" rel="stylesheet">
     

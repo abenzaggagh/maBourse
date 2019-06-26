@@ -4,7 +4,6 @@
 <section class="candidature-section">
     
     <div class="container">
-
         <div class="row justify-content-center" style="">
             
             <div class="col-md-12">
@@ -29,7 +28,7 @@
                         </div>
                        
                         <div class="line"></div>
-                        <!-- STEEEEEEEEP 3 -->
+
                         <div class="step" data-target="#formulaire">
                             <button type="button" class="step-trigger" role="tab" aria-controls="formulaire" id="formulaire-trigger">
                                 <span class="bs-stepper-circle">3</span>
@@ -38,7 +37,7 @@
                         </div>
 
                         <div class="line"></div>
-                        <!-- STEEEEEEEEP 4 -->
+
                         <div class="step" data-target="#confirmation">
                             <button type="button" class="step-trigger" role="tab" aria-controls="confirmation" id="confirmation-trigger">
                                 <span class="bs-stepper-circle">4</span>
@@ -50,30 +49,31 @@
 
                     <div class="bs-stepper-content">
                         
-                        {{-- @if (request()->session()->get('isRegisterd') == 'False') --}}
                         <div id="informations-personelles" class="content" role="tabpanel" aria-labelledby="informations-personelles-trigger">
                             <div class="row justify-content-center" style="margin-top: 24px;">
                                 <div class="col-md-9">
                     
-                                    <<div class="formulaire-perso"  style="border-radius: 8px; -webkit-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);-moz-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);">   
+                                    <div class="formulaire-perso"  style="border-radius: 8px; -webkit-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);-moz-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);">   
 
                                         <form>
-                                            
-                                        <input type="hidden" id="register" name="register" value="{{ $alreadyRegistered }}">
-                                        <input type="hidden" id="niveau_etude" name="niveau_etude" value="{{ $niveau }}">
+                                        
+                                            <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+                                            <input type="hidden" id="register" name="register" value="{{ $alreadyRegistered }}">
+                                            <input type="hidden" id="niveau_etude" name="niveau_etude" value="{{ $niveau }}">
 
                                             <div>
                                                 <h3 style="font-weight: bold; font-size: 25px; margin: 8px 0 24px 0;" class="justify-content-center">Informations Personnelles</h3>
-                                                <h5 style="font-size: 18px; margin: 8px 0 24px 0;">Veuillez remplir ...</h5>
+                                                <h5 style="font-size: 18px; margin: 8px 0 24px 0;">Veuillez saisir les informations suivantes</h5>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="niveau">Niveau d'étude:</label>
                                                 <select name="niveau" class="form-control form-input" id="niveau">
-                                                    <option value="BACHELIER">Baccalauréat</option>
-                                                    <option value="LICENCIER">License</option>
-                                                    <option value="MASTER">Master</option>
-                                                    <option value="DOCTORAT">Doctorat</option>
+                                                    <option disabled @if ($niveau == '') selected @endif> </option>  
+                                                    <option value="BAC" @if ($niveau == 'BAC') selected @endif>Baccalauréat</option>
+                                                    <option value="LIC" @if ($niveau == 'LIC') selected @endif>Licence</option>
+                                                    <option value="MAS"@if ($niveau == 'MAS') selected @endif>Master</option>
+                                                    <option value="DOC"@if ($niveau == 'DOC') selected @endif>Doctorat</option>
                                                 </select>
                                             </div>
                                             
@@ -99,12 +99,12 @@
                                             
                                             <div class="form-group">
                                                     <label for="cin">Carte Nationale d'Identité: <span class="red">*</span></label>
-                                                    <input name="cin" id="cin" type="text" class="form-control form-input" placeholder="XX123456" value="{{ $cin }}" required>
+                                                    <input name="cin" id="cin" type="text" class="form-control form-input" placeholder="eg. A123456" value="{{ $cin }}" required>
                                             </div>                       
 
                                             <div class="form-group">
                                                 <label for="ce">Code d'Étudiant (Code Massar | Code d'Inscription)</label>
-                                                <input name="ce" type="text" id="ce" class="form-control form-input" placeholder="XX123456" value="{{ $ce }}">
+                                                <input name="ce" type="text" id="ce" class="form-control form-input" placeholder="eg MXXxxxxxxxxx" value="{{ $ce }}">
                                             </div>
 
                                             <div class="form-group">
@@ -116,14 +116,14 @@
                                                 
                                                     <div class="col-md-4">
                                                         <div class="custom-control custom-radio custom-control-inline">
-                                                            <input type="radio" id="homme" name="sexe" class="custom-control-input" value="H">
+                                                            <input type="radio" id="homme" name="sexe" class="custom-control-input" value="H" @if ($sexe == 'H') checked @endif>
                                                             <label class="custom-control-label" for="homme">Homme</label>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-4">
                                                         <div class="custom-control custom-radio custom-control-inline">
-                                                            <input type="radio" id="femme" name="sexe" class="custom-control-input" value="F">
+                                                            <input type="radio" id="femme" name="sexe" class="custom-control-input" value="F" @if ($sexe == 'F') checked @endif>
                                                             <label class="custom-control-label" for="femme" >Femme</label>
                                                         </div>
                                                     </div>
@@ -132,11 +132,24 @@
                                                 
                                             </div>
 
+                                            
+
                                             <div class="form-group">
                                                 <label for="date-naissance">Date Naissance: <span class="red">*</span></label>
-                                                {{-- <input type="date" id=""  placeholder=""> --}}
-                                                <input name="dateNaissance" id="naissance" type="date" class="form-control">
+                                                {{-- <input name="dateNaissance" id="naissance" value="{{ $dateNaissance }}" type="date" class="form-control form-input"> --}}
+                                                <div class='input-group date' id='datetimepicker10'>
+                                                        <input type='text' class="form-control" />
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar">
+                                                            </span>
+                                                        </span>
+                                                    </div>
                                             </div>
+
+                                            <div class="form-group">
+                                                    <label for="date-naissance">Date Naissance: <span class="red">*</span></label>
+                                                    <input name="dateNaissance" id="naissance" value="{{ $dateNaissance }}" type="date" class="form-control form-input">
+                                                </div>
 
                                             <div class="form-group">
                                                 <label>Lieu de Naissance: *</label>
@@ -145,14 +158,14 @@
                                                     <div class="col">
                                                         <label for="ville" class="col-sm-2 col-form-label">Ville: </label>
                                                         <div class="col-sm-10">
-                                                        <input name="villeNaissance" type="text" class="form-control" placeholder="Ville" value="" required>
+                                                        <input name="villeNaissance" type="text" class="form-control form-input" placeholder="Ville" value="{{ $villeNaissance }}" required>
                                                         </div>
                                                     </div>
 
                                                     <div class="col">
                                                         <label for="ville" class="col-sm-2 col-form-label">Pays: </label>
                                                         <div class="col-sm-10">
-                                                            <input name="paysNaissance" type="text" class="form-control" placeholder="Pays" required>
+                                                            <input name="paysNaissance" type="text" class="form-control form-input" placeholder="Pays" value="{{ $paysNaissance }}" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -164,22 +177,22 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="date-naissance">Téléphone 1: *</label>
+                                                <label for="date-naissance">Téléphone 1: <span class="red">*</span></label>
                                                 <div class="input-group mb-3">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="inputGroup-sizing-default">+ 212</span>
                                                     </div>
-                                                    <input name="telephone_1" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="eg. 0612345678" required>
+                                                    <input name="telephone_1" type="tel" class="form-control form-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="eg. 0612345678" pattern="[0]{1}[5-6]{1}[0-9]{8}" value="{{ $tel_1 }}" required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group">
-                                                <label for="date-naissance">Téléphone 2: *</label>
+                                                <label for="date-naissance">Téléphone 2: <span class="red">*</span></label>
                                                 <div class="input-group mb-3">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="inputGroup-sizing-default">+ 212</span>
                                                     </div>
-                                                    <input name="telephone_2" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="0612345678" required>
+                                                    <input name="telephone_2" type="tel" class="form-control form-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="0612345678" pattern="[0]{1}[5-6]{1}[0-9]{8}" value="{{ $tel_2 }}" required>
                                                 </div>
                                             </div>
 
@@ -196,7 +209,6 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- @endif --}}
 
                         <div id="bourse" class="content" role="tabpanel" aria-labelledby="bourse-trigger">
                             <div class="row justify-content-center" style="margin-top: 24px;">
@@ -273,20 +285,8 @@
                                                     <p>condition2</p>
                                                     <p>condition3</p>
 
-<!--
 
-                                            <div>
-                                                <div class="float-left" > 
-                                                    <button class="btn nextBtn btn-lg button-no-border" type="button" onclick="stepperPrevious();">Précédant</button>
-                                                </div>
-
-                                                <div class="text-right" > 
-                                                    <button class="btn btn-primary nextBtn btn-lg" type="button" onclick="bourseNext();">Suivant</button>
-                                                </div>
-                                            </div>
--->
-
-                                                
+                 
                                             <div class="form-group form-check">
                                                 <label class="form-check-label">
                                                     <input class="form-check-input" type="checkbox" name="remember" required> I agree on  blabla.
@@ -445,32 +445,32 @@
                         </div>
 
                         <div id="confirmation" class="content" role="tabpanel" aria-labelledby="confirmation-trigger">
-                        <!--validation formulaire -->
 
-                        <p>Programme : "<span id="niveau_etude_v"></span>"</p>
-                        <p>Discipline : "<span id="niveau_etude_v"></span>"</p>
 
-                        <p>Nom "<span id="nom_v"></span>"</p>
-                        <p>Prénom : "<span id="prenom_v"></span>"</p>
-                        <p>Date de naissance: "<span id="date_naissance_v"></span>"</p>
-                        <p>Lieu de naissance : "<span id="ville_v"></span>" &nbsp;&nbsp;&nbsp;"<span id="pays_v"></span>"</p>
-                        <p>CIN : "<span id="CIN_v"></span>"</p>
-                        <p>Code étudiant : "<span id="code_mass_v"></span>"</p>
-                        <p>Sexe : "<span id="sexe_v"></span>"</p>
-                        <p>Numéro GSM 1 : "<span id="tel1_v"></span>"</p>
-                        <p>Numéro GSM 2 : "<span id="tel2_v"></span>"</p>
-                        <p>Adresse e-mail : "<span id="niveau_etude_v"></span>"</p>
+                            <p>Programme : "<span id="niveau_etude_v"></span>"</p>
+                            <p>Discipline : "<span id="niveau_etude_v"></span>"</p>
 
-                        <p>Serie du baccalauréat : "<span id="niveau_etude_v"></span>"</p>
-                        <p>Année d'obtention du baccalauréat : "<span id="niveau_etude_v"></span>"</p>
-                        <p>Academie : "<span id="niveau_etude_v"></span>"</p>
-                        <p>Note régional  : "<span id="niveau_etude_v"></span>"&nbsp;&nbsp;&nbsp;Note nationale:"<span id="niveau_etude_v"></span>" </p>
-                        <p>Note1 : "<span id="niveau_etude_v"></span>"</p>
-                        <p>Note1 : "<span id="niveau_etude_v"></span>"</p>
-                        <p>Note1 : "<span id="niveau_etude_v"></span>"</p>
-                        
-                        <button class="btn btn-primary prevtBtn btn-lg" type="button" onclick="stepperPrevious();">Modifier</button>
-                        <button class="btn btn-primary nextBtn btn-lg" type="button" onclick="stepperNext();">Valider</button>
+                            <p>Nom "<span id="nom_v"></span>"</p>
+                            <p>Prénom : "<span id="prenom_v"></span>"</p>
+                            <p>Date de naissance: "<span id="date_naissance_v"></span>"</p>
+                            <p>Lieu de naissance : "<span id="ville_v"></span>" &nbsp;&nbsp;&nbsp;"<span id="pays_v"></span>"</p>
+                            <p>CIN : "<span id="CIN_v"></span>"</p>
+                            <p>Code étudiant : "<span id="code_mass_v"></span>"</p>
+                            <p>Sexe : "<span id="sexe_v"></span>"</p>
+                            <p>Numéro GSM 1 : "<span id="tel1_v"></span>"</p>
+                            <p>Numéro GSM 2 : "<span id="tel2_v"></span>"</p>
+                            <p>Adresse e-mail : "<span id="niveau_etude_v"></span>"</p>
+
+                            <p>Serie du baccalauréat : "<span id="niveau_etude_v"></span>"</p>
+                            <p>Année d'obtention du baccalauréat : "<span id="niveau_etude_v"></span>"</p>
+                            <p>Academie : "<span id="niveau_etude_v"></span>"</p>
+                            <p>Note régional  : "<span id="niveau_etude_v"></span>"&nbsp;&nbsp;&nbsp;Note nationale:"<span id="niveau_etude_v"></span>" </p>
+                            <p>Note1 : "<span id="niveau_etude_v"></span>"</p>
+                            <p>Note1 : "<span id="niveau_etude_v"></span>"</p>
+                            <p>Note1 : "<span id="niveau_etude_v"></span>"</p>
+                            
+                            <button class="btn btn-primary prevtBtn btn-lg" type="button" onclick="stepperPrevious();">Modifier</button>
+                            <button class="btn btn-primary nextBtn btn-lg" type="button" onclick="stepperNext();">Valider</button>
                                     
                         </div>
 
@@ -486,6 +486,14 @@
 
 </section>
 
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker10').datetimepicker({
+            viewMode: 'years',
+            format: 'MM/YYYY'
+        });
+    });
+</script>
 
 @endsection
 
