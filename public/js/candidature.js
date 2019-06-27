@@ -14,7 +14,9 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 $(document).ready(function () {
-
+        
+    // var info = {!! json_encode($programmes, JSON_HEX_TAG) !!};
+    
     $("#discipline").hide();
     $("notes_mat").hide();
 
@@ -25,14 +27,23 @@ $(document).ready(function () {
     });
     
     window.stepper = new Stepper($('.bs-stepper')[0]);
+    
+    var hasNotes = $("#has-notes").val();
 
     if ($('#register').val() == '1') {
-        window.stepper.to(2);
+        if (hasNotes == '1') {
+            window.stepper.to(3);
+        } else {
+            window.stepper.to(2);
+        }
     }
   
 });
 
+$("#continuer").click(function() {
+    alert('Hello');
 
+});
 
 $("#informations").click(function(event) {
     event.preventDefault();
@@ -184,52 +195,56 @@ $("#type-bac").change(function(event) {
 
 });
 
-$("#candidature").click(function(event) {
-    
 
-});
 
 function cand() {
 
-    var disciplineID = $("#disciplines").val();
+    var hasNotes = $("#has-notes").val();
 
-    var typeBacID = $("#type-bac").val();
+    if (hasNotes == '0') {
+        var disciplineID = $("#disciplines").val();
 
-    var anneeAcademique = $("#anneeAcadimique").val();
-    var academique = $("#academie").val();
+        var typeBacID = $("#type-bac").val();
     
-    var noteRegionale = $("#note-reg").val();
-    var noteNationale = $("#note-nat").val();
-
-    var noteMat1 = $("#mat-1-input").val();
-    var noteMat2 = $("#mat-2-input").val();
-    var noteMat3 = $("#mat-3-input").val();
-
-    $.ajax({
-        type:'POST',
-        url:'/candidature',
-        data: {
-            disciplineID: disciplineID,
-            typeBacID: typeBacID,
-            anneeAcademique: anneeAcademique,
-            academique: academique,
-            noteRegionale: noteRegionale,
-            noteNationale: noteNationale,
-            noteMat1: noteMat1,
-            noteMat2: noteMat2,
-            noteMat3: noteMat3,
-        },
+        var anneeAcademique = $("#anneeAcadimique").val();
+        var academique = $("#academie").val();
     
-        success: function(data) {
-            window.stepper.next();
-        },
-
-        error: function(data) {
-
-        },
-
-    });
-
+        var noteRegionale = $("#note-reg").val();
+        var noteNationale = $("#note-nat").val();
+    
+        var noteMat1 = $("#mat-1-input").val();
+        var noteMat2 = $("#mat-2-input").val();
+        var noteMat3 = $("#mat-3-input").val();
+    
+        $.ajax({
+            type:'POST',
+            url:'/candidature',
+            data: {
+                disciplineID: disciplineID,
+                typeBacID: typeBacID,
+                anneeAcademique: anneeAcademique,
+                academique: academique,
+                noteRegionale: noteRegionale,
+                noteNationale: noteNationale,
+                noteMat1: noteMat1,
+                noteMat2: noteMat2,
+                noteMat3: noteMat3,
+            },
+    
+            success: function(data) {
+                window.stepper.next();
+            },
+    
+            error: function(data) {
+    
+            },
+    
+        });
+    } else {
+        alert('No');
+        window.stepper.next();
+    }
+    
 }
 
 function bourseNext() {

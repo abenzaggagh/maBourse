@@ -38,37 +38,88 @@ class CandidatureController extends Controller {
 
                 $etudiant = DB::table('etudiants')->where('user_id', $userID)->first();
 
-                $data = array(
+                $diplome = DB::table('diplomes')
+                ->where('etudiant_id', $etudiant->etudiant_id)->first();
 
-                    'alreadyRegistered' => TRUE,
-                    
-                    'niveau' => $etudiant->niveau_etude,
-                    'nom' => $etudiant->nom,
-                    'prenom' => $etudiant->prenom,
-                    'nom_ar' => $etudiant->nom_ar,
-                    'prenom_ar' => $etudiant->prenom_ar,
-                    'cin' => $etudiant->cin,
-                    'ce' => $etudiant->ce,
-                    'sexe' => $etudiant->sexe,
-                    'dateNaissance' => $etudiant->date_naissance,
-                    'villeNaissance' => $etudiant->ville_naissance,
-                    'paysNaissance' => $etudiant->pays_naissance,
-                    'email' => $request->session()->get('email'),
-                    'tel_1' => $etudiant->tel_1,
-                    'tel_2' => $etudiant->tel_2,
-                    
-                    'programmes' => $programmes,
+                if ($diplome == null) {
 
-                );
+                    $data = array(
 
-                return View('information', $data);
+                        'alreadyRegistered' => TRUE,
+                        'alreadyHasNotes' => FALSE,
+                        
+                        'niveau' => $etudiant->niveau_etude,
+                        'nom' => $etudiant->nom,
+                        'prenom' => $etudiant->prenom,
+                        'nom_ar' => $etudiant->nom_ar,
+                        'prenom_ar' => $etudiant->prenom_ar,
+                        'cin' => $etudiant->cin,
+                        'ce' => $etudiant->ce,
+                        'sexe' => $etudiant->sexe,
+                        'dateNaissance' => $etudiant->date_naissance,
+                        'villeNaissance' => $etudiant->ville_naissance,
+                        'paysNaissance' => $etudiant->pays_naissance,
+                        'email' => $request->session()->get('email'),
+                        'tel_1' => $etudiant->tel_1,
+                        'tel_2' => $etudiant->tel_2,
+                        
+                        
+                        'programmes' => $programmes,
+
+                    );
+
+                    return View('information', $data);
+
+                } else {
+
+                    if ($diplome->type == 'BAC') {
+
+                        $bac = DB::table('bacalaureats')
+                        ->join('type_bacalaureats', 'bacalaureats.type_bacalaureat_id', '=', 'type_bacalaureats.type_bacalaureat_id')
+                        ->where('diplome_id', $diplome->diplome_id)->first();
+
+                        $dip = DB::table('diplomes')
+                        ->where('etudiant_id', $etudiant->etudiant_id)->first();
+
+                        $data = array(
+
+                            'alreadyRegistered' => TRUE,
+                            'alreadyHasNotes' => TRUE,
+                            
+                            'niveau' => $etudiant->niveau_etude,
+                            'nom' => $etudiant->nom,
+                            'prenom' => $etudiant->prenom,
+                            'nom_ar' => $etudiant->nom_ar,
+                            'prenom_ar' => $etudiant->prenom_ar,
+                            'cin' => $etudiant->cin,
+                            'ce' => $etudiant->ce,
+                            'sexe' => $etudiant->sexe,
+                            'dateNaissance' => $etudiant->date_naissance,
+                            'villeNaissance' => $etudiant->ville_naissance,
+                            'paysNaissance' => $etudiant->pays_naissance,
+                            'email' => $request->session()->get('email'),
+                            'tel_1' => $etudiant->tel_1,
+                            'tel_2' => $etudiant->tel_2,
+                            
+                            'programmes' => $programmes,
+                            'dip' => $dip,
+                            'bac' => $bac,
+                        );
+
+                    }
+
+                    return View('information', $data);
+                }
+                
+                
 
             } else {
 
                 $data = array(
 
                     'alreadyRegistered' => FALSE,
-
+                    'alreadyHasNotes' => FALSE,
+                        
                     'niveau' => '',
                     'nom' => '',
                     'prenom' => '',
@@ -124,7 +175,6 @@ class CandidatureController extends Controller {
             if (Auth::attempt($credentials)) {
 
                 // TODO: Get user informations.
-
                 $user = DB::table('users')->where('email', $email)->first();
 
                 $userID = $user->user_id;
@@ -137,7 +187,21 @@ class CandidatureController extends Controller {
                 if ($etudiant == null) {
                     $request->session()->put('isRegisterd', 'False');
                 } else {
+
                     $request->session()->put('isRegisterd', 'True');
+
+                    $diplome = DB::table('diplomes')->where('etudiant_id', $etudiant->etudiant_id)->first();
+
+                    if ($diplome == null) {
+
+                        $request->session()->put('hasNotes', 'False');
+
+                    } else {
+
+                        $request->session()->put('hasNotes', 'True');
+
+                    }
+
                 }
 
                 return redirect('candidature');
@@ -188,8 +252,6 @@ class CandidatureController extends Controller {
     }
 
 
-    // Route::get('/discipline/{discipline_id}', 'CandidatureController@disciplines')->name('disciplines');
-    // Return disciplines with all informations
     public function disciplines($discipline_id) {
 
         $disciplines = DB::table('disciplines')
@@ -201,11 +263,9 @@ class CandidatureController extends Controller {
         return json_encode($disciplines);
     }
     
-    // Route::get('/typeBacalaureats/{type_bac_id}', 'CandidatureController@typeBacalaureats')->name('typeBacalaureats');
+
     public function typeBacalaureats($type_bac_id) {
-
         $disciplines = DB::table('type_bacalaureats')->where('type_bacalaureat_id', $type_bac_id)->get();
-
         return json_encode($disciplines);
     }
 
@@ -217,9 +277,7 @@ class CandidatureController extends Controller {
 
         $etudiant = DB::table('etudiants')->where('user_id', $userID)->first();
 
-        // $etudiantID = DB::table('etudiants')->where('user_id', $userID)->get('etudiant_id');
-
-        // TODO: Add info to Diplomes
+        // TODO: Verify if 
         $diplomeID = DB::table('diplomes')->insertGetId(
             [   'etudiant_id' => $etudiant->etudiant_id,
                 'academie_obtention' => $input["academique"],
