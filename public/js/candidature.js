@@ -185,18 +185,7 @@ $("#type-bac").change(function(event) {
 });
 
 $("#candidature").click(function(event) {
-    // event.preventDefault();
-
-    var noteRegionale;
-    var noteNationale;
-
-    var noteMat1;
-    var noteMat2;
-    var noteMat3;
     
-    noteRegionale = $("#noteRegionale").val();
-
-    alert(noteRegionale);
 
 });
 
@@ -216,8 +205,6 @@ function cand() {
     var noteMat2 = $("#mat-2-input").val();
     var noteMat3 = $("#mat-3-input").val();
 
-    // alert(disciplineID + ' T ' + typeBacID + ' AA ' + anneeAcademique  + ' A ' + academique);
-
     $.ajax({
         type:'POST',
         url:'/candidature',
@@ -234,14 +221,12 @@ function cand() {
         },
     
         success: function(data) {
-
+            window.stepper.next();
         },
 
         error: function(data) {
 
         },
-
-
 
     });
 

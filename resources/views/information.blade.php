@@ -290,7 +290,7 @@
                                                                 <div class="col">
                                                                     <label for="annee_obtention">Année d'obtention: <span class="red">*</span></label>
                                                                     <select class="form-control form-input" id="anneeAcadimique">
-                                                                        <option name="annee" disabled selected>Année d'obtention</option>  
+                                                                        <option disabled selected>Année d'obtention</option>  
                                                                         <option value="2019">2019</option>
                                                                         <option value="2018">2018</option>
                                                                     </select>

@@ -211,10 +211,45 @@ class CandidatureController extends Controller {
 
     public function candidature(Request $request) {
 
-        $user_id = $request->session()->get('userID');
+        $input = $request->all();
 
+        $userID = $request->session()->get('userID');
 
+        $etudiant = DB::table('etudiants')->where('user_id', $userID)->first();
 
+        // $etudiantID = DB::table('etudiants')->where('user_id', $userID)->get('etudiant_id');
+
+        // TODO: Add info to Diplomes
+        $diplomeID = DB::table('diplomes')->insertGetId(
+            [   'etudiant_id' => $etudiant->etudiant_id,
+                'academie_obtention' => $input["academique"],
+                'annee_obtention' => $input["anneeAcademique"],
+                'type' => 'BAC',
+            ]
+        );
+
+        if ($diplomeID != null) {
+
+            $MG = 0.25*$input["noteRegionale"]+0.75*$input["noteNationale"];
+
+            $bacID = DB::table('bacalaureats')->insertGetId(
+                [   'diplome_id' => $diplomeID,
+                    
+                    'moyenne_general' => $MG,
+
+                    'type_bacalaureat_id' => $input["typeBacID"],
+
+                    'note_nationale' => $input["noteNationale"],
+                    'note_regionale' => $input["noteRegionale"],
+
+                    'note_1' => $input["noteMat1"],
+                    'note_2' => $input["noteMat2"],
+                    'note_3' => $input["noteMat3"],
+                ]
+            );
+
+        }
+        
 
     }
 
