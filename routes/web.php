@@ -14,8 +14,13 @@ Auth::routes();
 
 // Candidature
 Route::get('/candidature', 'CandidatureController@index')->name('candidature');
+Route::post('/candidature', 'CandidatureController@candidature');
 
 Route::post('/information', 'CandidatureController@information')->name('information');
+
+Route::get('/disciplines/{programme_id}', 'CandidatureController@disciplinesByProgrammeID')->name('programmes');
+Route::get('/discipline/{discipline_id}', 'CandidatureController@disciplines')->name('disciplines');
+Route::get('/typeBacalaureats/{type_bac_id}', 'CandidatureController@typeBacalaureats')->name('typeBacalaureats');
 
 // Authentication
 // TODO: Rename the routes with simple names.

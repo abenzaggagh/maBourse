@@ -30,6 +30,8 @@ class CandidatureController extends Controller {
 
         if ($request->session()->exists('email')) {
 
+            $programmes = DB::table('programmes')->get();
+
             if ($request->session()->get('isRegisterd') == 'True') {
 
                 $userID = $request->session()->get('userID');
@@ -54,6 +56,8 @@ class CandidatureController extends Controller {
                     'email' => $request->session()->get('email'),
                     'tel_1' => $etudiant->tel_1,
                     'tel_2' => $etudiant->tel_2,
+                    
+                    'programmes' => $programmes,
 
                 );
 
@@ -62,6 +66,7 @@ class CandidatureController extends Controller {
             } else {
 
                 $data = array(
+
                     'alreadyRegistered' => FALSE,
 
                     'niveau' => '',
@@ -74,12 +79,13 @@ class CandidatureController extends Controller {
                     'sexe' => '',
                     'dateNaissance' => '',
                     'villeNaissance' => '',
-                    'paysnaissance' => '',
+                    'paysNaissance' => '',
                     'email' => $request->session()->get('email'),
                     'tel_1' => '',
                     'tel_2' => '',
-                    
-                    'sexe' => '',
+
+                    'programmes' => $programmes,
+
                 );
 
                 return View('information', $data);
@@ -93,8 +99,6 @@ class CandidatureController extends Controller {
 
     }
 
-
-    
     // Login
 
     public function login(Request $request) {
@@ -151,19 +155,7 @@ class CandidatureController extends Controller {
         $userID = $request->session()->get('userID');
 
         $input = $request->all();
-
-        //     niveau: niveau,
-        //     nom: nom, 
-        //     prenom: prenom,
-        //     cin: cin,
-        //     ce: ce, 
-        //     sexe: sexe, 
-        //     dateNaissance: dateNaissance,
-        //     villeNaissance: villeNaissance,
-        //     paysNaissance: paysNaissance,
-        //     telephone_1: telephone_1,
-        //     telephone_2: telephone_2,
-
+        
         DB::table('etudiants')->updateOrInsert(
             ['user_id' => $userID],
             [
@@ -172,27 +164,59 @@ class CandidatureController extends Controller {
                 
                 'nom' => $input["nom"],
                 'prenom' => $input["prenom"],
-                'nom_ar' => '',
-                'prenom_ar' => '',
+                'nom_ar' => $input["nom_ar"],
+                'prenom_ar' => $input["prenom_ar"],
                 'cin' => $input["cin"],
                 'ce' => $input["ce"],
                 'date_naissance' => $input["dateNaissance"],
                 'ville_naissance' => $input["villeNaissance"],
                 'pays_naissance' => $input["paysNaissance"],
                 'sexe' => $input["sexe"],
-                'pays_residence' => $input["paysNaissance"], // TODO Add a new input
+                'pays_residence' => $input["paysNaissance"],
                 'tel_1' => $input["telephone_1"],
                 'tel_2' => $input["telephone_2"],
             ]
         );
 
-
         $request->session()->put('isRegisterd', 'True');
-
-        
 
     }
 
+    public function disciplinesByProgrammeID($programme_id) {
+        $disciplines = DB::table('disciplines')->where('programme_id', $programme_id)->get();
+        return json_encode($disciplines);
+    }
+
+
+    // Route::get('/discipline/{discipline_id}', 'CandidatureController@disciplines')->name('disciplines');
+    // Return disciplines with all informations
+    public function disciplines($discipline_id) {
+
+        $disciplines = DB::table('disciplines')
+            ->join('discipline_bac', 'disciplines.discipline_id', '=', 'discipline_bac.discipline_id')
+            ->join('type_bacalaureats', 'type_bacalaureats.type_bacalaureat_id', '=', 'discipline_bac.type_bacalaureat_id')
+            ->where('disciplines.discipline_id', $discipline_id)
+            ->get();
+
+        return json_encode($disciplines);
+    }
+    
+    // Route::get('/typeBacalaureats/{type_bac_id}', 'CandidatureController@typeBacalaureats')->name('typeBacalaureats');
+    public function typeBacalaureats($type_bac_id) {
+
+        $disciplines = DB::table('type_bacalaureats')->where('type_bacalaureat_id', $type_bac_id)->get();
+
+        return json_encode($disciplines);
+    }
+
+    public function candidature(Request $request) {
+
+        $user_id = $request->session()->get('userID');
+
+
+
+
+    }
 
 
 
@@ -266,7 +290,6 @@ class CandidatureController extends Controller {
     
 
     // Logout
-
     public function logout(Request $request) {
         
         Auth::logout();

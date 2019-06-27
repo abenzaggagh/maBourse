@@ -43,7 +43,22 @@
     </nav>
 
 </header>
-{{-- <div style="background-color: #000; margin-top: 16px; height: 80px; width: 100%">
 
-</div> --}}
-
+@if(session()->exists('email'))
+    <div style="background-color: #000; height: 80px; width: 100%">
+        <div style="background-color: #000; color: #FFF;">
+            <a href="{{url('logout')}}" style="margin-top: 24px;color: #FFF;">Logout</a>
+        </div>
+    </div>
+    @if(session()->exists('verified'))
+    <div class="w-100 font-weight-light bg-muted validatemail py-2 px-3 d-flex align-items-center justify-content-between" style="background: #cc3341; font-size: 14px;">
+        <div>
+            <span class="small mr-2 font-weight-light">Veuillez confirmer votre e-mail</span>
+            <span class="badge badge-pill badge-info px-3 py-2 font-weight-light">{{ $email }}</span>
+        </div>
+        <div>
+            <span class="badge badge-pill badge-dark font-weight-light px-3 py-2 sendit">Renvoyer e-mail<font class="d-md-inline d-none"> de confirmation</font></span>
+        </div>
+    </div>
+    @endif
+@endif
