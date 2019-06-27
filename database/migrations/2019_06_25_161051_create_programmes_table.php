@@ -18,7 +18,7 @@ class CreateProgrammesTable extends Migration {
 
             $table->string('annee_universitaire');
 
-            $table->enum('cycle', ["1"]);
+            $table->enum('cycle', ["premier cycle","Master","Doctorat"]);
 
             $table->string('description');
             $table->string('condition');

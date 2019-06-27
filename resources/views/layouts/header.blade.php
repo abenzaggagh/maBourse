@@ -14,7 +14,7 @@
                         <a class="nav-link menu" href="{{ url('/') }}">{{ __('lang.accueil') }}</a>
                     </li>
                     <li class="nav-item menu" id="bourse">
-                        <a class="nav-link menu" href="">{{ __('lang.bourses') }}</a>
+                        <a class="nav-link menu" href="/bourse">{{ __('lang.bourses') }}</a>
                     </li>
                     <li class="nav-item menu" id="candidature">
                         <a class="nav-link menu" href="{{ url('candidature') }}">{{ __('lang.candidature') }}</a>
