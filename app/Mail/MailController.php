@@ -26,7 +26,6 @@ class MailController extends Controller {
         $object = "Mail - Laravel";
         $body = "Hi There... TEST";
 
-
         Mail::to($email)->send(new ValidationMail());
     }
 

@@ -18,10 +18,10 @@ class CreateProgrammesTable extends Migration {
 
             $table->string('annee_universitaire');
 
-            $table->enum('cycle', ["1"]);
+            $table->enum('cycle', ["1", "2", "3"]);
 
-            $table->string('description');
-            $table->string('condition');
+            $table->longText('description');
+            $table->longText('condition');
 
             $table->date('date_debut');
             $table->date('date_fin');
