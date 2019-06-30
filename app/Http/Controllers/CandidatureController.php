@@ -10,6 +10,7 @@ use Illuminate\Session\Store;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 use App\Http\Controllers\Controller;
@@ -20,15 +21,22 @@ use Auth;
 
 class CandidatureController extends Controller {
 
-    // TODO: Session Management 
-    // TODO: Links Protections
+    /* 
+    TODO: Session Management 
+    TODO: Links Protections
 
     public function index(Request $request) {
 
         $locale = $request->session()->get('locale');
         app()->setLocale($locale);
 
-        if ($request->session()->exists('email')) {
+        if ($request->session()->exists('incorrectPassword')) {
+
+            $request->session()->forget('incorrectPassword');
+            return view('candidature')->with('incorrectPassword', 'true');
+        
+        } else if ($request->session()->exists('email')) {
+            $request->session()->forget('incorrectPassword');
 
             $programmes = DB::table('programmes')->get();
 
@@ -36,7 +44,8 @@ class CandidatureController extends Controller {
 
                 $userID = $request->session()->get('userID');
 
-                $etudiant = DB::table('etudiants')->where('user_id', $userID)->first();
+                $etudiant = DB::table('etudiants')
+                ->where('user_id', $userID)->first();
 
                 $diplome = DB::table('diplomes')
                 ->where('etudiant_id', $etudiant->etudiant_id)->first();
@@ -111,8 +120,6 @@ class CandidatureController extends Controller {
                     return View('information', $data);
                 }
                 
-                
-
             } else {
 
                 $data = array(
@@ -139,118 +146,487 @@ class CandidatureController extends Controller {
 
                 );
 
-                return View('information', $data);
+                return view('information', $data);
             }
             
-            
-            
+
         } else {
-            return View('candidature');
+
+                $request->session()->forget('incorrectPassword');
+                return view('candidature')->with('incorrectPassword', 'false');
         }
 
     }
 
-    // Login
+    */
 
-    public function login(Request $request) {
+    public function index(Request $request) {
 
-        $email = $request->get('email');
-        $password = $request->get('password');
-        
-        $credentials = array(
-            'email' => $email, 
-            'password' => $password
-        );
+        $bacalaureats = DB::table('type_bacalaureats')->get();
 
-        $validator = Validator::make($credentials, [
-            'email' => 'required|email|exists:users',
-            'password' => 'required|min:8',
-        ]);
+        if ($request->session()->get('isConnected') == 'true') {
 
-        if ($validator->fails()) {
-            return redirect('candidature')->withErrors($validator)->withInput();
-        } else {
+            $userID = $request->session()->get('userID');
 
-            // attempt method return true if the authentication was successful, false if it fails.
-            if (Auth::attempt($credentials)) {
+            $user = DB::table('users')->where('user_id', $userID)->first();
 
-                // TODO: Get user informations.
-                $user = DB::table('users')->where('email', $email)->first();
-
-                $userID = $user->user_id;
+            if ($request->session()->get('isRegistered') == 'false') {
                 
-                $request->session()->put('userID', $userID);
-                $request->session()->put('email', $email);
+                        return view('stepper', 
+                    [
+                        'email' => $user->email,
+                        'niveau' => '',
+                        'nom' => '',
+                        'prenom' => '',
+                        'nom_ar' => '',
+                        'prenom_ar' => '',
+                        'cin' => '',
+                        'ce' => '',
+                        'date_naissance' => '',
+                        'ville_naissance' => '',
+                        'pays_naissance' => '',
+                        'sexe' => '',
+                        'pays_residence' => '',
+                        'tel_1' => '',
+                        'tel_2' => '',
 
+                        'bacs' => $bacalaureats,
+
+                        'academie_obtention' =>  '',
+
+                        'hasNotes' => 'false',
+                        'note_nationale' => '', 
+                        'note_regionale' => '', 
+                        'note_1' => '', 
+                        'note_2' => '', 
+                        'note_3' => '',
+                    ]);
+
+            } else if ($request->session()->get('isRegistered') == 'true') {
+                
                 $etudiant = DB::table('etudiants')->where('user_id', $userID)->first();
 
-                if ($etudiant == null) {
-                    $request->session()->put('isRegisterd', 'False');
-                } else {
+                $etudiantID = $etudiant->etudiant_id;
 
-                    $request->session()->put('isRegisterd', 'True');
+                if ($request->session()->get('Diploma') != '') {
 
-                    $diplome = DB::table('diplomes')->where('etudiant_id', $etudiant->etudiant_id)->first();
+                    $diplome = DB::table('diplomes')->where('etudiant_id', $etudiantID)->first();
 
-                    if ($diplome == null) {
+                    $diplomeID = $diplome->diplome_id;
 
-                        $request->session()->put('hasNotes', 'False');
+                    if ($request->session()->get('Diploma') == 'BAC') {
 
-                    } else {
+                        $bac = DB::table('bacalaureats')->where(['diplome_id' => $diplomeID])->first();
 
-                        $request->session()->put('hasNotes', 'True');
+                        if ($request->session()->get('hasDocs') == 'true' && $request->session()->get('hasNotes') == 'true') {
+
+                            $programmes = DB::table('programmes')->get();
+
+                            return view('informations',
+                            [
+                                'email' => $user->email,
+                                'niveau' => $etudiant->niveau_etude,
+                                'nom' => $etudiant->nom,
+                                'prenom' => $etudiant->prenom,
+                                'nom_ar' => $etudiant->nom_ar,
+                                'prenom_ar' => $etudiant->prenom_ar,
+                                'cin' => $etudiant->cin,
+                                'ce' => $etudiant->ce,
+                                'date_naissance' => $etudiant->date_naissance,
+                                'ville_naissance' => $etudiant->ville_naissance,
+                                'pays_naissance' => $etudiant->pays_naissance,
+                                'sexe' => $etudiant->sexe,
+                                'pays_residence' => $etudiant->pays_residence,
+                                'tel_1' => $etudiant->tel_1,
+                                'tel_2' =>  $etudiant->tel_2,
+
+                                'programmes' => $programmes,
+                                
+                                'bacs' => $bacalaureats,
+
+                                'academie_obtention' =>  $diplome->academie_obtention,
+
+                                'hasNotes' => 'true',
+
+                                'type_bac_id'=> $bac->type_bacalaureat_id,
+                                'note_nationale' => $bac->note_nationale, 
+                                'note_regionale' => $bac->note_regionale, 
+                                'note_1' => $bac->note_1, 
+                                'note_2' => $bac->note_2, 
+                                'note_3' => $bac->note_3,
+                            ]
+                        );
+
+                        } else if ($request->session()->get('hasDocs') == 'false' && $request->session()->get('hasNotes') == 'true') {
+                            
+                            return view('stepper', 
+                                [
+                                    'email' => $user->email,
+                                    'niveau' => $etudiant->niveau_etude,
+                                    'nom' => $etudiant->nom,
+                                    'prenom' => $etudiant->prenom,
+                                    'nom_ar' => $etudiant->nom_ar,
+                                    'prenom_ar' => $etudiant->prenom_ar,
+                                    'cin' => $etudiant->cin,
+                                    'ce' => $etudiant->ce,
+                                    'date_naissance' => $etudiant->date_naissance,
+                                    'ville_naissance' => $etudiant->ville_naissance,
+                                    'pays_naissance' => $etudiant->pays_naissance,
+                                    'sexe' => $etudiant->sexe,
+                                    'pays_residence' => $etudiant->pays_residence,
+                                    'tel_1' => $etudiant->tel_1,
+                                    'tel_2' =>  $etudiant->tel_2,
+    
+                                    
+                                    'bacs' => $bacalaureats,
+    
+                                    'academie_obtention' =>  $diplome->academie_obtention,
+    
+                                    'hasNotes' => 'true',
+    
+                                    'type_bac_id'=> $bac->type_bacalaureat_id,
+                                    'note_nationale' => $bac->note_nationale, 
+                                    'note_regionale' => $bac->note_regionale, 
+                                    'note_1' => $bac->note_1, 
+                                    'note_2' => $bac->note_2, 
+                                    'note_3' => $bac->note_3,
+                                ]
+                            );
+                        } else {
+
+                            return view('stepper', 
+                                [
+                                    'email' => $user->email,
+                                    'niveau' => $etudiant->niveau_etude,
+                                    'nom' => $etudiant->nom,
+                                    'prenom' => $etudiant->prenom,
+                                    'nom_ar' => $etudiant->nom_ar,
+                                    'prenom_ar' => $etudiant->prenom_ar,
+                                    'cin' => $etudiant->cin,
+                                    'ce' => $etudiant->ce,
+                                    'date_naissance' => $etudiant->date_naissance,
+                                    'ville_naissance' => $etudiant->ville_naissance,
+                                    'pays_naissance' => $etudiant->pays_naissance,
+                                    'sexe' => $etudiant->sexe,
+                                    'pays_residence' => $etudiant->pays_residence,
+                                    'tel_1' => $etudiant->tel_1,
+                                    'tel_2' =>  $etudiant->tel_2,
+
+                                    'bacs' => $bacalaureats,
+
+                                    'academie_obtention' =>  '',
+
+                                    'hasNotes' => 'false',
+                                    'note_nationale' => '', 
+                                    'note_regionale' => '', 
+                                    'note_1' => '', 
+                                    'note_2' => '', 
+                                    'note_3' => '',
+                                ]);
+
+                        }
 
                     }
 
+                } else {
+
+                    return view('stepper', 
+                    [
+                        'email' => $user->email,
+                        'niveau' => $etudiant->niveau_etude,
+                        'nom' => $etudiant->nom,
+                        'prenom' => $etudiant->prenom,
+                        'nom_ar' => $etudiant->nom_ar,
+                        'prenom_ar' => $etudiant->prenom_ar,
+                        'cin' => $etudiant->cin,
+                        'ce' => $etudiant->ce,
+                        'date_naissance' => $etudiant->date_naissance,
+                        'ville_naissance' => $etudiant->ville_naissance,
+                        'pays_naissance' => $etudiant->pays_naissance,
+                        'sexe' => $etudiant->sexe,
+                        'pays_residence' => $etudiant->pays_residence,
+                        'tel_1' => $etudiant->tel_1,
+                        'tel_2' =>  $etudiant->tel_2,
+
+                        'bacs' => $bacalaureats,
+
+                        'academie_obtention' =>  '',
+
+                        'hasNotes' => 'false',
+                        'note_nationale' => '', 
+                        'note_regionale' => '', 
+                        'note_1' => '', 
+                        'note_2' => '', 
+                        'note_3' => '',
+                    ]);
+                    
                 }
 
-                return redirect('candidature');
-
-            } else {
-
-                
             }
+            
+        } else {
+            return view('authentication');
+        }
+        
+    }
+    
+
+    public function information(Request $request) {
+        
+        if ($request->session()->get('isConnected') == 'true') {
+
+            $userID = $request->session()->get('userID');
+
+            $input = $request->all();
+            
+            DB::table('etudiants')->updateOrInsert(
+                ['user_id' => $userID],
+                [
+                    'user_id' => $userID,
+                    'niveau_etude' => $input["niveau"],
+                    
+                    'nom' => $input["nom"],
+                    'prenom' => $input["prenom"],
+                    'nom_ar' => $input["nom_ar"],
+                    'prenom_ar' => $input["prenom_ar"],
+                    'cin' => $input["cin"],
+                    'ce' => $input["ce"],
+                    'date_naissance' => $input["dateNaissance"],
+                    'ville_naissance' => $input["villeNaissance"],
+                    'pays_naissance' => $input["paysNaissance"],
+                    'sexe' => $input["sexe"],
+                    'pays_residence' => $input["paysNaissance"],
+                    'tel_1' => $input["telephone_1"],
+                    'tel_2' => $input["telephone_2"],
+                    'carte_identite' => '',
+                    'releve_notes' => '',
+                ]
+            );
+    
+            $request->session()->put('isRegistered', 'true');
         }
 
     }
 
-    public function information(Request $request) {
-        
-        $userID = $request->session()->get('userID');
+    public function cursus(Request $request) {
 
-        $input = $request->all();
-        
-        DB::table('etudiants')->updateOrInsert(
-            ['user_id' => $userID],
-            [
-                'user_id' => $userID,
-                'niveau_etude' => $input["niveau"],
+        if ($request->session()->get('isConnected') == 'true') {
+
+            $userID = $request->session()->get('userID');
+
+            $input = $request->all();
+
+            $etudiantID = DB::table('etudiants')->where('user_id', $userID)->value('etudiant_id');
+
+            $diplome = DB::table('diplomes')->where('etudiant_id', $etudiantID)->first();
+
+            if ($diplome == null) {
+
+                $diplomeID = DB::table('diplomes')->insertGetId(
+                    [   'etudiant_id' => $etudiantID,
+                        
+                        'type' => $input["type"],
+                        
+                        'annee_obtention' => $input["anneeAcademique"],
+                        'academie_obtention' => $input["academie"],
+                        
+                        'diplome_doc' => '',
+                    ]
+                );
+
+                if ($diplomeID != null) {
+
+                    $MG = 0.25*$input["noteRegionale"]+0.75*$input["noteNationale"];
+
+                    $bacID = DB::table('bacalaureats')->insertGetId(
+                        [   'diplome_id' => $diplomeID,
+                            
+                            'moyenne_general' => $MG,
+
+                            'type_bacalaureat_id' => $input["typeBac"],
+
+                            'note_nationale' => $input["noteNationale"],
+                            'note_regionale' => $input["noteRegionale"],
+
+                            'note_1' => $input["noteMat1"],
+                            'note_2' => $input["noteMat2"],
+                            'note_3' => $input["noteMat3"],
+                        ]
+                    );
+
+                    $request->session()->put('Diploma', 'BAC');
+
+                }
+
+            } else {
+
+                $diplomeID = $diplome->diplome_id;
+
+                DB::table('diplomes')->where(['etudiant_id' => $etudiantID])->update(
+                    [   
+                        'type' => $input["type"],
+                        
+                        'annee_obtention' => $input["anneeAcademique"],
+                        'academie_obtention' => $input["academie"],
+                        
+                        'diplome_doc' => '',
+                    ]
+                );
                 
-                'nom' => $input["nom"],
-                'prenom' => $input["prenom"],
-                'nom_ar' => $input["nom_ar"],
-                'prenom_ar' => $input["prenom_ar"],
-                'cin' => $input["cin"],
-                'ce' => $input["ce"],
-                'date_naissance' => $input["dateNaissance"],
-                'ville_naissance' => $input["villeNaissance"],
-                'pays_naissance' => $input["paysNaissance"],
-                'sexe' => $input["sexe"],
-                'pays_residence' => $input["paysNaissance"],
-                'tel_1' => $input["telephone_1"],
-                'tel_2' => $input["telephone_2"],
-            ]
-        );
+                if ($diplome->type == 'BAC') {
 
-        $request->session()->put('isRegisterd', 'True');
+                    $MG = 0.25*$input["noteRegionale"]+0.75*$input["noteNationale"];
+
+                    $bacID = DB::table('bacalaureats')->where(['diplome_id' => $diplomeID])->update(
+                        [                           
+                            'moyenne_general' => $MG,
+        
+                            'type_bacalaureat_id' => $input["typeBac"],
+        
+                            'note_nationale' => $input["noteNationale"],
+                            'note_regionale' => $input["noteRegionale"],
+        
+                            'note_1' => $input["noteMat1"],
+                            'note_2' => $input["noteMat2"],
+                            'note_3' => $input["noteMat3"],
+                        ]
+                    );
+
+                    $request->session()->put('Diploma', 'BAC');
+
+                }
+
+            }
+
+        }
 
     }
+
+    public function documents(Request $request) {
+
+        if ($request->session()->get('isConnected') == 'true') {
+
+            $allowedfileExtension = ['pdf','jpg','png'];
+
+            $userID = $request->session()->get('userID');
+
+            $input = $request->all();
+
+            // Niveau d'etude de l'étudiant Si Bac ...
+
+            $etudiant = DB::table('etudiants')->where('user_id', $userID)->first();
+
+            $etudiantID = $etudiant->etudiant_id;
+
+            $destinationPath = $etudiant->cin;
+
+            $diplomeID;
+
+            if ($etudiant->niveau_etude == 'BAC') {
+
+                $diplome = DB::table('diplomes')->where(
+                    [
+                        ['etudiant_id', $etudiantID],
+                        ['type', 'BAC'],
+                    ]
+                )->first();
+
+                $diplomeID = $diplome->diplome_id;
+
+                if ($diplome != null) {
+
+                    // Bacalearut path file -> diplome_doc f table diplomes
+                    if ($request->hasFile('baccalaureat_file')) {
+
+                        $baccalaureatFile = $request->file('baccalaureat_file');
+
+                        $filename = $baccalaureatFile->getClientOriginalName();
+                        $extension = $baccalaureatFile->getClientOriginalExtension();
+                        
+                        $check = in_array($extension,$allowedfileExtension);
+
+                        if($check) {
+                            $path = Storage::putFileAs(
+                                $destinationPath, $baccalaureatFile, $destinationPath.'_Baccalaureat.'.$extension
+                            );
+
+                            DB::table('diplomes')->where(['diplome_id' => $diplomeID])->update(
+                                [                           
+                                    'diplome_doc' => $path
+                                ]
+                            );
+
+                        }
+
+                    }
+
+                } else {
+                    // Do nothing
+                }
+
+            } else {/* TO ADD METHOD FOR LIC, MAS, DOC Students */}
+
+            if ($request->hasFile('cin_password_file')) {
+
+                $cinPasseportFile = $request->file('cin_password_file');
+
+                $filename = $cinPasseportFile->getClientOriginalName();
+                $extension = $cinPasseportFile->getClientOriginalExtension();
+                
+                $check = in_array($extension, $allowedfileExtension);
+
+                if($check) {
+                    $path = Storage::putFileAs(
+                        $destinationPath, $cinPasseportFile, $destinationPath.'_CIN_Passeport.'.$extension
+                    );
+
+                    DB::table('etudiants')->where(['etudiant_id' => $etudiantID])->update(
+                        [                           
+                            'carte_identite' => $path
+                        ]
+                    );
+
+                }
+
+            }
+
+            if ($request->hasFile('releve_notes_file')) {
+
+                $releveFile = $request->file('releve_notes_file');
+
+                $filename = $releveFile->getClientOriginalName();
+                $extension = $releveFile->getClientOriginalExtension();
+                
+                $check = in_array($extension, $allowedfileExtension);
+
+                if($check) {
+                    
+                    $path = Storage::putFileAs(
+                        $destinationPath, $releveFile, $destinationPath.'_Releve_Notes.'.$extension
+                    );
+
+                    DB::table('etudiants')->where(['etudiant_id' => $etudiantID])->update(
+                        [                           
+                            'releve_notes' => $path
+                        ]
+                    );
+                }
+
+            }
+
+            return redirect('/candidature');
+        
+        }
+
+    }
+
+
+
 
     public function disciplinesByProgrammeID($programme_id) {
         $disciplines = DB::table('disciplines')->where('programme_id', $programme_id)->get();
         return json_encode($disciplines);
     }
-
 
     public function disciplines($discipline_id) {
 
@@ -263,7 +639,6 @@ class CandidatureController extends Controller {
         return json_encode($disciplines);
     }
     
-
     public function typeBacalaureats($type_bac_id) {
         $disciplines = DB::table('type_bacalaureats')->where('type_bacalaureat_id', $type_bac_id)->get();
         return json_encode($disciplines);
@@ -312,90 +687,5 @@ class CandidatureController extends Controller {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // Register methods ! 
-
-    protected function createUser(array $data) {
-        User::create([
-            'email' => $data['email'],
-            'password' => Hash::make($data['password_register']),
-        ]);
-    }
-    
-    public function register(Request $request) {
-
-        $user = array('email_register' => $request->get('email_register'), 'email' => $request->get('email_register'), 'password_register' => $request->get('password_register'), 'password_confirmation' => $request->get('password_confirmation'));
-
-        // TODO: Validator must be fixed ASAP
-        // $validator = Validator::make($user, [
-        //     //'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-        //     //'email_register' => ['required', 'string', 'email', 'max:255'],
-        //     //'password_register' => ['required', 'string', 'min:8', 'confirmed'],
-        //     //'password_confirmation' => ['required', 'string', 'min:8', 'confirmed'],
-        // ]);
-
-        // if ($validator->fails()) {
-            // return redirect('candidature')->withErrors($validator)->withInput();
-        // } else {
-
-        $this->createUser($user);
-
-        $credentials = array('email' => $request->get('email_register'), 'password' => $request->get('password_register'));
-
-        if (Auth::attempt($credentials)) {
-
-            $email = $credentials['email'];
-
-            $user = DB::table('users')->where('email', $email)->first();
-
-            $userID = $user->user_id;
-                
-            $request->session()->put('userID', $userID);
-            $request->session()->put('email', $email);
-
-            // Mail::to($email)->send(new ValidationMail());
-
-            return redirect('candidature');
-
-        }
-        
-
-    }
-    
-
-    // Logout
-    public function logout(Request $request) {
-        
-        Auth::logout();
-        
-        $request->session()->flush();
-
-        $locale = $request->session()->get('locale');
-        $request->session()->put('locale', 'fr');
-
-        app()->setLocale('fr');
-        
-        return redirect('candidature');
-        
-    }
     
 }

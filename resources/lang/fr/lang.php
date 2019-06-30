@@ -8,6 +8,9 @@ return [
     'resultats' => 'Résultats',
     'langue' => 'Langue',
 
-    'email' => 'L’e-mail entré ne correspond à aucun compte.',
+    'email' => 'Désolé, nous ne reconnaissons pas cette adresse mail.',
+    // 'email_register' => 'Un compte est déjà associé à cette adresse mail',
+    'motdepasse' => 'Mot de passe incorrect. Veuillez réessayer.',
+
     
 ];

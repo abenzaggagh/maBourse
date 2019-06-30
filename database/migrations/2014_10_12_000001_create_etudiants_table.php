@@ -10,11 +10,11 @@ class CreateEtudiantsTable extends Migration {
         
         Schema::create('etudiants', function (Blueprint $table) {
 
-            $table->bigIncrements('etudiant_id');
-            
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('user_id')->on('users');
 
+            $table->bigIncrements('etudiant_id');
+            
             $table->string('cin');
             $table->string('ce');
             
@@ -38,6 +38,9 @@ class CreateEtudiantsTable extends Migration {
             
             $table->string('tel_1');
             $table->string('tel_2');
+
+            $table->string('carte_identite');
+            $table->string('releve_notes');
         
         });
 

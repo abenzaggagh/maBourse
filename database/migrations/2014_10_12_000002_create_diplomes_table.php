@@ -18,6 +18,8 @@ class CreateDiplomesTable extends Migration {
             $table->year("annee_obtention");
             $table->string("academie_obtention");
 
+            $table->string('diplome_doc');
+
         });
     }
 

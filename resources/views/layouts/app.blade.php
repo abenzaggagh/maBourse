@@ -10,29 +10,20 @@
 
     <title>maBourse</title>
 
-
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
     
-    
-
     <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <script src="{{ asset('js/header.js') }}" defer></script>
-
-    @if(request()->is('/'))
-        <script src="{{ asset('js/index.js') }}" defer></script>
-    @elseif(request()->is('candidature'))
+    @if (request()->session()->get('isConnected') == 'true')
         <script src="{{ asset('js/candidature.js') }}" defer></script>
     @endif
-        
-    <script src="{{ asset('js/bs-stepper.js') }}" defer></script>
-
-    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/bs-stepper.css') }}" rel="stylesheet">
     
+    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="{{ asset('css/bs-stepper.min.css') }}">
+    <script src="{{ asset('js/bs-stepper.min.js') }}"></script>
 
 </head>
 
@@ -51,3 +42,4 @@
 </body>
 
 </html>
+
