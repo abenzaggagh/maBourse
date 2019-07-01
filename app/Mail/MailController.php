@@ -14,19 +14,25 @@ class MailController extends Controller {
     }
 
 
-    public function home() {
+    public function sendValidation(Request $request) {
 
-        $email = "amine.benzaggagh@icloud.com";
+        $userID = $request->session()->get('userID');
+
+        $email = DB::table('users')->where('user_id', $userID)->first();
 
         Mail::to($email)->send(new ValidationMail());
+
     }
 
-    public function sendValidationEmail() {
-        $email = "amine.benzaggagh@icloud.com";
-        $object = "Mail - Laravel";
-        $body = "Hi There... TEST";
+
+    public function nouvelleCandidature(Request $request) {
+
+        $userID = $request->session()->get('userID');
+
+        $email = DB::table('users')->where('user_id', $userID)->first();
 
         Mail::to($email)->send(new ValidationMail());
+        
     }
 
 }

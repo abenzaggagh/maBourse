@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Auth;
 
+use Mail;
+
 use App\User;
 
 use Illuminate\Http\Request;
@@ -105,6 +107,7 @@ class AuthenticationController extends Controller {
 
     }
 
+    // DONE
     public function register(Request $request) {
 
         $data = array('email_register' => $request->get('email_register'), 'email' => $request->get('email_register'), 'password_register' => $request->get('password_register'), 'password_confirmation' => $request->get('password_confirmation'));
@@ -129,7 +132,8 @@ class AuthenticationController extends Controller {
                 $request->session()->put('userID', $userID);
                 $request->session()->put('email', $email);
     
-                // Mail::to($email)->send(new ValidationMail());
+                $request->session()->put('isConnected', 'true');
+                $request->session()->put('isRegistered', 'false');
     
                 return redirect('candidature');
     
@@ -141,6 +145,7 @@ class AuthenticationController extends Controller {
 
     }
 
+    // DONE
     public function logout(Request $request) {
         
         Auth::logout();

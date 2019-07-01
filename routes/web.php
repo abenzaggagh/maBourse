@@ -4,6 +4,7 @@
 
 // Index
 Route::get('/', 'IndexController@index')->name('index');
+// TODO: Add Closure
 Route::get('/lang/{locale}', 'IndexController@locale')->name('locale');
 
 // Authentication
@@ -20,11 +21,9 @@ Route::post('/cursus', 'CandidatureController@cursus');
 Route::post('/documents', 'CandidatureController@documents');
 
 
-
 // Bourses
 Route::get('/bourse','BourseController@index');
 Route::get('/detail_programme','BourseController@detail_programme');
-
 
 
 // TODO: TO BE MOVED TO THE API
@@ -33,11 +32,10 @@ Route::get('/discipline/{discipline_id}', 'CandidatureController@disciplines')->
 Route::get('/typeBacalaureats/{type_bac_id}', 'CandidatureController@typeBacalaureats')->name('typeBacalaureats');
 
 
-
-
 // Mail
 Route::get('/mail', 'MailController@index');
-Route::get('/mail/sendVerification', 'MailController@home');
+Route::get('/mail/sendVerification', 'MailController@sendValidation');
+
 
 
 

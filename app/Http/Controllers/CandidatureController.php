@@ -172,7 +172,7 @@ class CandidatureController extends Controller {
 
             if ($request->session()->get('isRegistered') == 'false') {
                 
-                        return view('stepper', 
+                return view('stepper', 
                     [
                         'email' => $user->email,
                         'niveau' => '',
@@ -506,13 +506,11 @@ class CandidatureController extends Controller {
 
         if ($request->session()->get('isConnected') == 'true') {
 
-            $allowedfileExtension = ['pdf','jpg','png'];
+            $allowedfileExtension = ['pdf','jpg','png','jpeg','PDF','JPG','PNG','JPEG'];
 
             $userID = $request->session()->get('userID');
 
             $input = $request->all();
-
-            // Niveau d'etude de l'étudiant Si Bac ...
 
             $etudiant = DB::table('etudiants')->where('user_id', $userID)->first();
 
@@ -522,49 +520,7 @@ class CandidatureController extends Controller {
 
             $diplomeID;
 
-            if ($etudiant->niveau_etude == 'BAC') {
-
-                $diplome = DB::table('diplomes')->where(
-                    [
-                        ['etudiant_id', $etudiantID],
-                        ['type', 'BAC'],
-                    ]
-                )->first();
-
-                $diplomeID = $diplome->diplome_id;
-
-                if ($diplome != null) {
-
-                    // Bacalearut path file -> diplome_doc f table diplomes
-                    if ($request->hasFile('baccalaureat_file')) {
-
-                        $baccalaureatFile = $request->file('baccalaureat_file');
-
-                        $filename = $baccalaureatFile->getClientOriginalName();
-                        $extension = $baccalaureatFile->getClientOriginalExtension();
-                        
-                        $check = in_array($extension,$allowedfileExtension);
-
-                        if($check) {
-                            $path = Storage::putFileAs(
-                                $destinationPath, $baccalaureatFile, $destinationPath.'_Baccalaureat.'.$extension
-                            );
-
-                            DB::table('diplomes')->where(['diplome_id' => $diplomeID])->update(
-                                [                           
-                                    'diplome_doc' => $path
-                                ]
-                            );
-
-                        }
-
-                    }
-
-                } else {
-                    // Do nothing
-                }
-
-            } else {/* TO ADD METHOD FOR LIC, MAS, DOC Students */}
+            $request->session()->put('hasNotes', 'true');
 
             if ($request->hasFile('cin_password_file')) {
 
@@ -576,15 +532,10 @@ class CandidatureController extends Controller {
                 $check = in_array($extension, $allowedfileExtension);
 
                 if($check) {
-                    $path = Storage::putFileAs(
-                        $destinationPath, $cinPasseportFile, $destinationPath.'_CIN_Passeport.'.$extension
-                    );
+                    
+                    $path = Storage::putFileAs($destinationPath, $cinPasseportFile, $destinationPath.'_CIN_Passeport.'.$extension);
 
-                    DB::table('etudiants')->where(['etudiant_id' => $etudiantID])->update(
-                        [                           
-                            'carte_identite' => $path
-                        ]
-                    );
+                    DB::table('etudiants')->where(['etudiant_id' => $etudiantID])->update(['carte_identite' => $path]);
 
                 }
 
@@ -601,48 +552,61 @@ class CandidatureController extends Controller {
 
                 if($check) {
                     
-                    $path = Storage::putFileAs(
-                        $destinationPath, $releveFile, $destinationPath.'_Releve_Notes.'.$extension
-                    );
+                    $path = Storage::putFileAs($destinationPath, $releveFile, $destinationPath.'_Releve_Notes.'.$extension);
 
-                    DB::table('etudiants')->where(['etudiant_id' => $etudiantID])->update(
-                        [                           
-                            'releve_notes' => $path
-                        ]
-                    );
+                    DB::table('etudiants')->where(['etudiant_id' => $etudiantID])->update(['releve_notes' => $path]);
+
                 }
 
             }
 
+            if ($etudiant->niveau_etude == 'BAC') {
+
+                $request->session()->put('Diploma', 'BAC');
+
+                $diplome = DB::table('diplomes')->where([['etudiant_id', $etudiantID], ['type', 'BAC']])->first();
+
+                $diplomeID = $diplome->diplome_id;
+
+                if ($diplome != null) {
+
+                    if ($request->hasFile('baccalaureat_file')) {
+
+                        $baccalaureatFile = $request->file('baccalaureat_file');
+
+                        $filename = $baccalaureatFile->getClientOriginalName();
+                        $extension = $baccalaureatFile->getClientOriginalExtension();
+                        
+                        $check = in_array($extension,$allowedfileExtension);
+
+                        if($check) {
+
+                            $path = Storage::putFileAs(
+                                $destinationPath, $baccalaureatFile, $destinationPath.'_Baccalaureat.'.$extension
+                            );
+
+                            DB::table('diplomes')->where(['diplome_id' => $diplomeID])->update(['diplome_doc' => $path]);
+
+                        }
+
+                    }
+
+                } 
+
+            } else {/* TO ADD METHOD FOR LIC, MAS, DOC Students */}
+
+            $request->session()->put('hasDocs', 'true');
+
             return redirect('/candidature');
-        
+
         }
-
+        
     }
 
 
 
 
-    public function disciplinesByProgrammeID($programme_id) {
-        $disciplines = DB::table('disciplines')->where('programme_id', $programme_id)->get();
-        return json_encode($disciplines);
-    }
-
-    public function disciplines($discipline_id) {
-
-        $disciplines = DB::table('disciplines')
-            ->join('discipline_bac', 'disciplines.discipline_id', '=', 'discipline_bac.discipline_id')
-            ->join('type_bacalaureats', 'type_bacalaureats.type_bacalaureat_id', '=', 'discipline_bac.type_bacalaureat_id')
-            ->where('disciplines.discipline_id', $discipline_id)
-            ->get();
-
-        return json_encode($disciplines);
-    }
     
-    public function typeBacalaureats($type_bac_id) {
-        $disciplines = DB::table('type_bacalaureats')->where('type_bacalaureat_id', $type_bac_id)->get();
-        return json_encode($disciplines);
-    }
 
     public function candidature(Request $request) {
 
@@ -650,6 +614,7 @@ class CandidatureController extends Controller {
 
         $userID = $request->session()->get('userID');
 
+    /*
         $etudiant = DB::table('etudiants')->where('user_id', $userID)->first();
 
         // TODO: Verify if 
@@ -682,10 +647,30 @@ class CandidatureController extends Controller {
             );
 
         }
-        
+    */
 
     }
 
 
+    public function disciplinesByProgrammeID($programme_id) {
+        $disciplines = DB::table('disciplines')->where('programme_id', $programme_id)->get();
+        return json_encode($disciplines);
+    }
+
+    public function disciplines($discipline_id) {
+
+        $disciplines = DB::table('disciplines')
+            ->join('discipline_bac', 'disciplines.discipline_id', '=', 'discipline_bac.discipline_id')
+            ->join('type_bacalaureats', 'type_bacalaureats.type_bacalaureat_id', '=', 'discipline_bac.type_bacalaureat_id')
+            ->where('disciplines.discipline_id', $discipline_id)
+            ->get();
+
+        return json_encode($disciplines);
+    }
     
+    public function typeBacalaureats($type_bac_id) {
+        $disciplines = DB::table('type_bacalaureats')->where('type_bacalaureat_id', $type_bac_id)->get();
+        return json_encode($disciplines);
+    }
+
 }

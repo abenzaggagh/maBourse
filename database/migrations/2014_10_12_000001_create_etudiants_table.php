@@ -15,8 +15,8 @@ class CreateEtudiantsTable extends Migration {
 
             $table->bigIncrements('etudiant_id');
             
-            $table->string('cin');
-            $table->string('ce');
+            $table->string('cin')->unique();
+            $table->string('ce')->unique();
             
             $table->enum('niveau_etude',['BAC','LIC','MAS','DOC']);
 

@@ -6,8 +6,9 @@
         <div class="col-3">
             <div class="sidebar">   
                 <div class="tab-menu">  
-                    <div class="list-group list-group-flush">
                         <br>
+                    <div class="list-group list-group-flush">
+                        
 
                         <button class="list-group-item active" id="sidebar-informations">Informations personnelles</button>
                         
@@ -18,10 +19,9 @@
                         <button class="list-group-item" id="supports">Support</button>
     
                     </div>
+
                     <div>
-                        <a href="{{url('logout')}}" class="list-group-item ">
-                        <h4 class="	fas fa-times-circle">&nbsp;&nbsp;</h4>Déconnexion
-                        </a>
+                        <a href="{{url('logout')}}" class="list-group-item ">Déconnexion</a>
                     </div> 
                 </div>
             </div>
