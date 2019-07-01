@@ -94,9 +94,9 @@
 /***/ (function(module, exports) {
 
 document.addEventListener('DOMContentLoaded', function () {
-  $("#app-informations").show();
-  $("#app-candidatures").hide();
-  $("#mes-candidatures").hide();
+  $("#app-informations").hide();
+  $("#app-candidatures").show();
+  $("#mes-candidatures").show();
   $("#nouvelle-candidatures").hide();
   $("#discipline").hide();
   var height = $(window).height();
@@ -163,6 +163,18 @@ $("#disciplines").change(function (event) {
     error: function error(data) {
       alert('NO');
     }
+  });
+});
+$("#confirmer-candidature").click(function (event) {
+  event.preventDefault();
+  var disciplineID = $("#confirmer-candidature").val();
+  $.ajax({
+    type: 'POST',
+    url: '/candidater',
+    data: {
+      discipline_id: disciplineID
+    },
+    success: function success(data) {}
   });
 });
 

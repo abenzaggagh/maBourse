@@ -12470,7 +12470,7 @@ li {
 }
 
 .home {
-  min-height: 700px;
+  min-height: 900px;
   margin: -1px;
   overflow: hidden;
 }
@@ -12484,5 +12484,9 @@ li {
   height: 100%;
   background: #FFFFFF;
   box-shadow: 2px 0px 5px 0px #cdcdcd;
+}
+
+.footer-button {
+  margin: 16px 0px;
 }
 

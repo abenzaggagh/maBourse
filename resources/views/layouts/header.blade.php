@@ -1,5 +1,5 @@
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light sb-navbar fixed-top header">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sb-navbar header">
         <div class="row line">   
             <div class="logo">
                 <a class="navbar-brand" href="/">
