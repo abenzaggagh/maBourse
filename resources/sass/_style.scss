@@ -167,17 +167,13 @@ hr {
 a {
     color: black;
     padding: 8px;
-    font-size: 18px; 
-
+    font-size: 18px;
 }
 
 
 li {
     margin: 4px;
 }
-
-
-
 
 
 .menu {
@@ -356,7 +352,7 @@ li {
 // Home
 
 .home {
-    min-height: 700px;
+    min-height: 900px;
     margin: -1px;
     overflow: hidden;
 }
@@ -373,3 +369,34 @@ li {
     -moz-box-shadow: 2px 0px 5px 0px rgba(205,205,205,1);
     box-shadow: 2px 0px 5px 0px rgba(205,205,205,1);
 }
+
+
+
+.footer-button {
+    margin: 16px 0px;
+}
+
+
+
+
+
+
+
+
+
+.tooltip-info {
+    width: 16px;
+    margin: 3px;
+}
+
+.simple_dark_lbl span {
+    vertical-align: middle;
+    float: none !important;
+    font-family: inherit;
+}
+
+.help_tuto_icn {
+    vertical-align: top !important;
+    position: relative;
+}
+  

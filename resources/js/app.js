@@ -56,6 +56,10 @@ $(document).ready(function () {
 
 });
 
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
+
 $("#acceuil").click(function(event) {
     $("#acceuil").addClass("active");
     $("#bourse").removeClass("active");

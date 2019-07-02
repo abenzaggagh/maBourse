@@ -1,4 +1,7 @@
 .DS_Store
 .vscode
 .env
+node_modules
 yarn-error.log
+composer.lock
+yarn.lock

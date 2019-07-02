@@ -172,7 +172,7 @@ class CandidatureController extends Controller {
 
             if ($request->session()->get('isRegistered') == 'false') {
                 
-                        return view('stepper', 
+                return view('stepper', 
                     [
                         'email' => $user->email,
                         'niveau' => '',
@@ -502,17 +502,17 @@ class CandidatureController extends Controller {
 
     }
 
+    // SIZE LIMIT
+    // FORMAT (EXTENSION FILE)
     public function documents(Request $request) {
 
         if ($request->session()->get('isConnected') == 'true') {
 
-            $allowedfileExtension = ['pdf','jpg','png'];
+            $allowedfileExtension = ['pdf','jpg','png','jpeg','PDF','JPG','PNG','JPEG'];
 
             $userID = $request->session()->get('userID');
 
             $input = $request->all();
-
-            // Niveau d'etude de l'étudiant Si Bac ...
 
             $etudiant = DB::table('etudiants')->where('user_id', $userID)->first();
 
@@ -522,49 +522,7 @@ class CandidatureController extends Controller {
 
             $diplomeID;
 
-            if ($etudiant->niveau_etude == 'BAC') {
-
-                $diplome = DB::table('diplomes')->where(
-                    [
-                        ['etudiant_id', $etudiantID],
-                        ['type', 'BAC'],
-                    ]
-                )->first();
-
-                $diplomeID = $diplome->diplome_id;
-
-                if ($diplome != null) {
-
-                    // Bacalearut path file -> diplome_doc f table diplomes
-                    if ($request->hasFile('baccalaureat_file')) {
-
-                        $baccalaureatFile = $request->file('baccalaureat_file');
-
-                        $filename = $baccalaureatFile->getClientOriginalName();
-                        $extension = $baccalaureatFile->getClientOriginalExtension();
-                        
-                        $check = in_array($extension,$allowedfileExtension);
-
-                        if($check) {
-                            $path = Storage::putFileAs(
-                                $destinationPath, $baccalaureatFile, $destinationPath.'_Baccalaureat.'.$extension
-                            );
-
-                            DB::table('diplomes')->where(['diplome_id' => $diplomeID])->update(
-                                [                           
-                                    'diplome_doc' => $path
-                                ]
-                            );
-
-                        }
-
-                    }
-
-                } else {
-                    // Do nothing
-                }
-
-            } else {/* TO ADD METHOD FOR LIC, MAS, DOC Students */}
+            $request->session()->put('hasNotes', 'true');
 
             if ($request->hasFile('cin_password_file')) {
 
@@ -576,15 +534,10 @@ class CandidatureController extends Controller {
                 $check = in_array($extension, $allowedfileExtension);
 
                 if($check) {
-                    $path = Storage::putFileAs(
-                        $destinationPath, $cinPasseportFile, $destinationPath.'_CIN_Passeport.'.$extension
-                    );
+                    
+                    $path = Storage::putFileAs($destinationPath, $cinPasseportFile, $destinationPath.'_CIN_Passeport.'.$extension);
 
-                    DB::table('etudiants')->where(['etudiant_id' => $etudiantID])->update(
-                        [                           
-                            'carte_identite' => $path
-                        ]
-                    );
+                    DB::table('etudiants')->where(['etudiant_id' => $etudiantID])->update(['carte_identite' => $path]);
 
                 }
 
@@ -601,26 +554,103 @@ class CandidatureController extends Controller {
 
                 if($check) {
                     
-                    $path = Storage::putFileAs(
-                        $destinationPath, $releveFile, $destinationPath.'_Releve_Notes.'.$extension
-                    );
+                    $path = Storage::putFileAs($destinationPath, $releveFile, $destinationPath.'_Releve_Notes.'.$extension);
 
-                    DB::table('etudiants')->where(['etudiant_id' => $etudiantID])->update(
-                        [                           
-                            'releve_notes' => $path
-                        ]
-                    );
+                    DB::table('etudiants')->where(['etudiant_id' => $etudiantID])->update(['releve_notes' => $path]);
+
                 }
 
             }
 
-            return redirect('/candidature');
-        
-        }
+            if ($etudiant->niveau_etude == 'BAC') {
 
+                $request->session()->put('Diploma', 'BAC');
+
+                $diplome = DB::table('diplomes')->where([['etudiant_id', $etudiantID], ['type', 'BAC']])->first();
+
+                $diplomeID = $diplome->diplome_id;
+
+                if ($diplome != null) {
+
+                    if ($request->hasFile('baccalaureat_file')) {
+
+                        $baccalaureatFile = $request->file('baccalaureat_file');
+
+                        $filename = $baccalaureatFile->getClientOriginalName();
+                        $extension = $baccalaureatFile->getClientOriginalExtension();
+                        
+                        $check = in_array($extension,$allowedfileExtension);
+
+                        if($check) {
+
+                            $path = Storage::putFileAs(
+                                $destinationPath, $baccalaureatFile, $destinationPath.'_Baccalaureat.'.$extension
+                            );
+
+                            DB::table('diplomes')->where(['diplome_id' => $diplomeID])->update(['diplome_doc' => $path]);
+
+                        }
+
+                    }
+
+                } 
+
+            } else {/* TO ADD METHOD FOR LIC, MAS, DOC Students */}
+
+            $request->session()->put('hasDocs', 'true');
+
+            return redirect('/candidature');
+
+        }
+        
     }
 
 
+
+
+    
+
+    public function candidature(Request $request) {
+        
+        if ($request->session()->get('isConnected') == 'true') {
+            
+            $input = $request->all();
+
+            $userID = $request->session()->get('userID');
+
+            $etudiant = DB::table('etudiants')->where('user_id', $userID)->first();
+
+
+
+        }
+
+    /*
+        
+
+        if ($diplomeID != null) {
+
+            $MG = 0.25*$input["noteRegionale"]+0.75*$input["noteNationale"];
+
+            $bacID = DB::table('bacalaureats')->insertGetId(
+                [   'diplome_id' => $diplomeID,
+                    
+                    'moyenne_general' => $MG,
+
+                    'type_bacalaureat_id' => $input["typeBacID"],
+
+                    'note_nationale' => $input["noteNationale"],
+                    'note_regionale' => $input["noteRegionale"],
+
+                    'note_1' => $input["noteMat1"],
+                    'note_2' => $input["noteMat2"],
+                    'note_3' => $input["noteMat3"],
+                ]
+            );
+
+        }
+    */
+
+    }
 
 
     public function disciplinesByProgrammeID($programme_id) {
@@ -644,48 +674,4 @@ class CandidatureController extends Controller {
         return json_encode($disciplines);
     }
 
-    public function candidature(Request $request) {
-
-        $input = $request->all();
-
-        $userID = $request->session()->get('userID');
-
-        $etudiant = DB::table('etudiants')->where('user_id', $userID)->first();
-
-        // TODO: Verify if 
-        $diplomeID = DB::table('diplomes')->insertGetId(
-            [   'etudiant_id' => $etudiant->etudiant_id,
-                'academie_obtention' => $input["academique"],
-                'annee_obtention' => $input["anneeAcademique"],
-                'type' => 'BAC',
-            ]
-        );
-
-        if ($diplomeID != null) {
-
-            $MG = 0.25*$input["noteRegionale"]+0.75*$input["noteNationale"];
-
-            $bacID = DB::table('bacalaureats')->insertGetId(
-                [   'diplome_id' => $diplomeID,
-                    
-                    'moyenne_general' => $MG,
-
-                    'type_bacalaureat_id' => $input["typeBacID"],
-
-                    'note_nationale' => $input["noteNationale"],
-                    'note_regionale' => $input["noteRegionale"],
-
-                    'note_1' => $input["noteMat1"],
-                    'note_2' => $input["noteMat2"],
-                    'note_3' => $input["noteMat3"],
-                ]
-            );
-
-        }
-        
-
-    }
-
-
-    
 }
