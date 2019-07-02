@@ -37377,6 +37377,9 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).ready(function () {
     window.stepper.next();
   }
 });
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('[data-toggle="tooltip"]').tooltip();
+});
 jquery__WEBPACK_IMPORTED_MODULE_0___default()("#acceuil").click(function (event) {
   jquery__WEBPACK_IMPORTED_MODULE_0___default()("#acceuil").addClass("active");
   jquery__WEBPACK_IMPORTED_MODULE_0___default()("#bourse").removeClass("active");

@@ -1,44 +1,59 @@
-@extends('layouts.app')
-@section('content')
+<?php $__env->startSection('content'); ?>
 <section>
     <div class="candidature-auth">
         <div class="container">
             <h1>Mon Compte</h1>
             <div class="row">
-                {{-- Registration --}}
+                
                 <div class="col-sm-5">
                     <h2 class="title">Inscrivez-vous</h2>
                     <div class="form">
-                        <form role="form" method="POST" action="{{ route('register') }}">
-                            @csrf
+                        <form role="form" method="POST" action="<?php echo e(route('register')); ?>">
+                            <?php echo csrf_field(); ?>
                             <fieldset>
                                 <div class="form-group">
                                     <label for="email_register">Adresse e-mail</label>
                                     <input type="email" name="email_register" id="email-register" class="form-control input-lg "  placeholder="Adresse e-mail">
-                                    @error('email_register')
+                                    <?php if ($errors->has('email_register')) :
+if (isset($message)) { $messageCache = $message; }
+$message = $errors->first('email_register'); ?>
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <strong><?php echo e($message); ?></strong>
                                         </span>
-                                    @enderror
+                                    <?php unset($message);
+if (isset($messageCache)) { $message = $messageCache; }
+endif; ?>
                                 </div>
                                 <div class="form-group">
                                     <label for="password_register">Mot de passe</label>
-                                    <input type="password" name="password_register" id="password-register" class="form-control @error('password_register') is-invalid @enderror input-lg" placeholder="Mot de passe" required autocomplete="new-password">
-                                    @error('password_register')
+                                    <input type="password" name="password_register" id="password-register" class="form-control <?php if ($errors->has('password_register')) :
+if (isset($message)) { $messageCache = $message; }
+$message = $errors->first('password_register'); ?> is-invalid <?php unset($message);
+if (isset($messageCache)) { $message = $messageCache; }
+endif; ?> input-lg" placeholder="Mot de passe" required autocomplete="new-password">
+                                    <?php if ($errors->has('password_register')) :
+if (isset($message)) { $messageCache = $message; }
+$message = $errors->first('password_register'); ?>
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <strong><?php echo e($message); ?></strong>
                                         </span>
-                                    @enderror
+                                    <?php unset($message);
+if (isset($messageCache)) { $message = $messageCache; }
+endif; ?>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="password_confirmation">Confirmer votre mot de passe</label>
                                     <input type="password" name="password_confirmation" id="password-confirm" class="form-control input-lg" placeholder="Confirmer votre mot de passe" required autocomplete="new-password">
-                                    @error('password_confirmation')
+                                    <?php if ($errors->has('password_confirmation')) :
+if (isset($message)) { $messageCache = $message; }
+$message = $errors->first('password_confirmation'); ?>
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <strong><?php echo e($message); ?></strong>
                                         </span>
-                                    @enderror
+                                    <?php unset($message);
+if (isset($messageCache)) { $message = $messageCache; }
+endif; ?>
                                 </div>
                                 
                                 <div class="form-check">
@@ -61,30 +76,46 @@
                     </div>
                 </div>
                 <div class="col-sm-2"></div>
-                {{-- Connection --}}
+                
                 <div class="col-sm-5">
                     <h2 class="title">Déjà inscrit(e)</h2>
                     <div class="form">
-                        <form role="form" method="POST" action="{{ route('login') }}">
-                            @csrf
+                        <form role="form" method="POST" action="<?php echo e(route('login')); ?>">
+                            <?php echo csrf_field(); ?>
                             <fieldset>                                
                                 <div class="form-group">
                                     <label for="email">Adresse e-mail</label>
-                                    <input type="email" name="email" id="email" class="form-control input-lg form-control @error('email') is-invalid @enderror" placeholder="Adresse e-mail" required autocomplete="email">
-                                    @error('email')
+                                    <input type="email" name="email" id="email" class="form-control input-lg form-control <?php if ($errors->has('email')) :
+if (isset($message)) { $messageCache = $message; }
+$message = $errors->first('email'); ?> is-invalid <?php unset($message);
+if (isset($messageCache)) { $message = $messageCache; }
+endif; ?>" placeholder="Adresse e-mail" required autocomplete="email">
+                                    <?php if ($errors->has('email')) :
+if (isset($message)) { $messageCache = $message; }
+$message = $errors->first('email'); ?>
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ __('lang.email') }}</strong>
+                                            <strong><?php echo e(__('lang.email')); ?></strong>
                                         </span> 
-                                    @enderror
+                                    <?php unset($message);
+if (isset($messageCache)) { $message = $messageCache; }
+endif; ?>
                                 </div>
                                 <div class="form-group">
                                     <label for="password">Mot de passe</label>
-                                    <input type="password" name="password" id="password" class="form-control input-lg form-control @error('password') is-invalid @enderror" placeholder="Mot de passe" required autocomplete="current-password">
-                                    @error('password')
+                                    <input type="password" name="password" id="password" class="form-control input-lg form-control <?php if ($errors->has('password')) :
+if (isset($message)) { $messageCache = $message; }
+$message = $errors->first('password'); ?> is-invalid <?php unset($message);
+if (isset($messageCache)) { $message = $messageCache; }
+endif; ?>" placeholder="Mot de passe" required autocomplete="current-password">
+                                    <?php if ($errors->has('password')) :
+if (isset($message)) { $messageCache = $message; }
+$message = $errors->first('password'); ?>
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ __('lang.motdepasse') }}</strong>
+                                            <strong><?php echo e(__('lang.motdepasse')); ?></strong>
                                         </span>
-                                    @enderror
+                                    <?php unset($message);
+if (isset($messageCache)) { $message = $messageCache; }
+endif; ?>
                                 </div>
                                 <div class="form-group">
                                     <a class="btn btn-link no-padding" href="#">Mot de passe oublié?</a>
@@ -124,5 +155,7 @@
     </div>
 </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Users/amine/Developer/Bourse/resources/views/authentication.blade.php ENDPATH**/ ?>

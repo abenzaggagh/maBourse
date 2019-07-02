@@ -502,6 +502,8 @@ class CandidatureController extends Controller {
 
     }
 
+    // SIZE LIMIT
+    // FORMAT (EXTENSION FILE)
     public function documents(Request $request) {
 
         if ($request->session()->get('isConnected') == 'true') {
@@ -609,22 +611,21 @@ class CandidatureController extends Controller {
     
 
     public function candidature(Request $request) {
+        
+        if ($request->session()->get('isConnected') == 'true') {
+            
+            $input = $request->all();
 
-        $input = $request->all();
+            $userID = $request->session()->get('userID');
 
-        $userID = $request->session()->get('userID');
+            $etudiant = DB::table('etudiants')->where('user_id', $userID)->first();
+
+
+
+        }
 
     /*
-        $etudiant = DB::table('etudiants')->where('user_id', $userID)->first();
-
-        // TODO: Verify if 
-        $diplomeID = DB::table('diplomes')->insertGetId(
-            [   'etudiant_id' => $etudiant->etudiant_id,
-                'academie_obtention' => $input["academique"],
-                'annee_obtention' => $input["anneeAcademique"],
-                'type' => 'BAC',
-            ]
-        );
+        
 
         if ($diplomeID != null) {
 

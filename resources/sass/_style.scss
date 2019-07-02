@@ -384,11 +384,19 @@ li {
 
 
 
+.tooltip-info {
+    width: 16px;
+    margin: 3px;
+}
 
+.simple_dark_lbl span {
+    vertical-align: middle;
+    float: none !important;
+    font-family: inherit;
+}
 
-
-
-
-
-
+.help_tuto_icn {
+    vertical-align: top !important;
+    position: relative;
+}
   

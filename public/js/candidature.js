@@ -122,6 +122,7 @@ $("#sidebar-candidatures").click(function (event) {
 $("#candidater").click(function (event) {
   $("#mes-candidatures").hide();
   $("#nouvelle-candidatures").show();
+  var disciplineID = $("#disciplines").val();
 });
 $("#programmes").change(function (event) {
   event.preventDefault();
@@ -167,7 +168,7 @@ $("#disciplines").change(function (event) {
 });
 $("#confirmer-candidature").click(function (event) {
   event.preventDefault();
-  var disciplineID = $("#confirmer-candidature").val();
+  var disciplineID = $("#disciplines").val();
   $.ajax({
     type: 'POST',
     url: '/candidater',
